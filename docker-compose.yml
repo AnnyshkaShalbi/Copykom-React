@@ -1,0 +1,26 @@
+services:
+  copykom-app01:
+    container_name: copykom-app01
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      NEXT_POLL_FILESYSTEM: true
+      NEXT_WEBPACK_USEPOLLING: 1
+    volumes:
+      - ./app:/app
+      - ./public:/app/public
+    restart: always
+    logging:
+      options:
+        max-size: "50M"
+        max-file: "3"
+    ports:
+      - 3001:3000
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
+    external: true
