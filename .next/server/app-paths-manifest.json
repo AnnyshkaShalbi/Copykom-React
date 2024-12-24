@@ -1,4 +1,6 @@
 {
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/services/drawings/page": "app/services/drawings/page.js",
+  "/services/copydoc/page": "app/services/copydoc/page.js"
 }
