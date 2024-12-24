@@ -18,12 +18,12 @@ function Metro() {
             children: "Metro123"
         }, void 0, false, {
             fileName: "[project]/app/ui/home/metro.tsx",
-            lineNumber: 6,
+            lineNumber: 5,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/ui/home/metro.tsx",
-        lineNumber: 5,
+        lineNumber: 4,
         columnNumber: 5
     }, this);
 }
@@ -47,18 +47,18 @@ function Home() {
                 children: "Content home page"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 8,
+                lineNumber: 6,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$ui$2f$home$2f$metro$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 9,
+                lineNumber: 7,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 7,
+        lineNumber: 5,
         columnNumber: 5
     }, this);
 }

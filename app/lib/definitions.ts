@@ -1,6 +1,6 @@
 export type Metro = {
   id: string;
   title: string;
-  address: number;
+  address: string;
   openinghouse: string;
 };
