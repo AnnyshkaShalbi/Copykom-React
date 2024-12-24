@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import '@/app/ui/globals.css';
-import { inter, noto_sans } from '@/app/ui/fonts';
+import { inter } from '@/app/ui/fonts';
 import Header from "./ui/header/header";
 
 export const metadata: Metadata = {
