@@ -13,7 +13,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <>
+    <div className='flex flex-col'>
       {links.map((link) => {
         
         return (
@@ -27,10 +27,10 @@ export default function NavLinks() {
               },
             )}
           >
-            <p className="hidden md:block text-red-950">{link.name}</p>
+            <p className="text-red-950">{link.name}</p>
           </Link>
         );
       })}
-    </>
+    </div>
   );
 }
