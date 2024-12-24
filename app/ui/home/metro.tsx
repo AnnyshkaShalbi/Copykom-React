@@ -1,4 +1,3 @@
-import { metro } from "@/app/lib/placeholder-data"
 
 export default function Metro() {
   return(
