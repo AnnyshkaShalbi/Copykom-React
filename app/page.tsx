@@ -1,14 +1,11 @@
 import Metro from "./ui/home/metro";
-import { Button } from "./ui/common/button";
+import OrderDiploma from "./ui/home/orderDiploma";
 
 export default function Home() {
   return (
-    <div className="py-10 px-5">
-      <p>Content home page</p>
+    <div className="p-5">
+      <OrderDiploma />
       <Metro />
-      <Button>
-        sgsgs
-      </Button>
     </div>
   );
 }

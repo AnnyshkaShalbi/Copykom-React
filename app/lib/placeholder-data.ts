@@ -21,4 +21,19 @@ const metro = [
   }
 ]
 
-export { metro };
+const steps = [
+  {
+    index: true,
+    text: "Загружаешь диплом",
+  },
+  {
+    index: true,
+    text: "Выбираешь цвет и обложку",
+  },
+  {
+    index: false,
+    text: "Забираешь свой диплом",
+  },
+]
+
+export { metro, steps };
