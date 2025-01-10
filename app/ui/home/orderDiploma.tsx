@@ -4,9 +4,11 @@ import { steps } from "@/app/lib/placeholder-data"
 import clsx from 'clsx';
 import Link from "next/link";
 
+
 export default function OrderDiploma() {
   return(
     <>
+      <Subtitle />
       <Title />
       <PS />
       <StepByStep />
@@ -15,13 +17,24 @@ export default function OrderDiploma() {
   )
 }
 
+const Subtitle = () => {
+  return(
+    <div className="mb-4">
+      <p className="text-[#464F6A] italic">
+        <span className="block md:hidden">Хей, студент!</span>
+        <span className="hidden md:block md:mb-2">
+          Хей, студент! Тебя уже всё достало и ты хочешь поскорее сдать диплом?
+        </span>
+      </p>
+      <p className="text-[#464F6A] italic hidden md:block">Не парься —</p>
+    </div>
+  )
+} 
 
 
 const Title = () => {
   return (
     <>
-      <p className="text-[#464F6A]">Хей, студент!</p>
-
       <h1 className={`${tenor_sans.className} text-2xl`}>
         <p>ЗАКАЖИ <span className="text-primary">ПЕЧАТЬ</span></p>
         <p><span className="text-primary">ДИПЛОМА</span> У НАС</p>
