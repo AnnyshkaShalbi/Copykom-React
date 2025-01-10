@@ -12,7 +12,7 @@ export default function Footer() {
           <Image
             width={178}
             height={55}
-            src="/logoWhite.png"
+            src="/logoNewWhite.svg"
             alt="Копикома - копировальный центр для студентов"
           />
         </Link>

@@ -45,7 +45,7 @@ const Title = () => {
 
 const PS = () => {
   return(
-    <div className="bg-[#E6ECFF] px-4 py-5">
+    <div className="bg-[#E6ECFF] px-4 py-5 my-4">
       <p className={`${inter.className} text-xs text-primary`}>P.S. Только у нас ты можешь сделать обложку с фирменной эмблемой своего ВУЗа!</p>
     </div>
   )
@@ -53,7 +53,7 @@ const PS = () => {
 
 const StepByStep = () => {
   return(
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2 mb-4">
       {
         steps.map((item, index) => {
           return(
@@ -72,7 +72,7 @@ const StepByStep = () => {
                   />
                 }
               </span>
-              <p>{item.text}</p>
+              <p className="text-xs">{item.text}</p>
             </div>
           )
         })
@@ -83,7 +83,7 @@ const StepByStep = () => {
 
 const OrderDiplomaPrinting = () => {
   return(
-    <Link href={'/'} className="rounded-full bg-primary w-[128px] h-[128px] flex justify-center items-center">
+    <Link href={'/'} className="rounded-full bg-primary w-[128px] h-[128px] flex justify-center items-center mx-auto">
       <div className="">
         <Image
           width={15}

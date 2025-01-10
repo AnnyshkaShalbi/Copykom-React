@@ -27,7 +27,7 @@ export default function Header() {
             <Image
               width={118}
               height={36}
-              src="/logoBlack.png"
+              src="/logoNewBlack.svg"
               alt="Копикома - копировальный центр для студентов"
             />
           </Link>
