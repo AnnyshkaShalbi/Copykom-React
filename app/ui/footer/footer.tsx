@@ -7,7 +7,7 @@ import Socials from './socials'
 export default function Footer() {
   return (
     <footer className="bg-[#0B0B0C] text-white flex flex-shrink-0">
-      <div className="container mx-auto flex flex-col gap-4 justify-between items-center py-10">
+      <div className="wrapper flex flex-col gap-4 justify-between items-center py-10">
         <Link href={'/'}>
           <Image
             width={178}

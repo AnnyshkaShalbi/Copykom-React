@@ -9,7 +9,7 @@ const links = [
   { name: 'Drawing', href: '/services/drawings' },
 ];
  
-export default function NavLinks() {
+export default function NavLinksSidebar() {
   const pathname = usePathname();
 
   return (

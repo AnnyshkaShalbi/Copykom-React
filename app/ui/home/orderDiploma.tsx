@@ -7,13 +7,16 @@ import Link from "next/link";
 
 export default function OrderDiploma() {
   return(
-    <>
-      <Subtitle />
-      <Title />
-      <PS />
-      <StepByStep />
-      <OrderDiplomaPrinting />
-    </>
+    <div className="relative">
+      <div className="wrapper flex flex-col justify-between px-5">
+        <Subtitle />
+        <Title />
+        <PS />
+        <StepByStep />
+        <OrderDiplomaPrinting />
+      </div>
+      {/* <CoverDiplom /> */}
+    </div>
   )
 }
 
@@ -59,7 +62,7 @@ const StepByStep = () => {
           return(
             <div key={index} className="flex gap-4 items-center">
               <span className={clsx(
-                'bg-[#F1F4F7] w-[30px] h-[30px] flex items-center justify-center rounded-full', {
+                'bg-[#F1F4F7] w-6 h-6 flex items-center justify-center rounded-full', {
                   'bg-primary': index === steps.length - 1,
                 },
               )}>
@@ -98,3 +101,53 @@ const OrderDiplomaPrinting = () => {
     </Link>
   )
 }
+
+const CoverDiplom = () => {
+  return (
+    <div className="sm:absolute bottom-0 right-0 w-full md:w-auto">
+      <div className="block sm:hidden">
+        <Image
+          src="/diplomsMain/img-360x840.png"
+          alt="Обложка диплома"
+          width={360}
+          height={840}
+          className="w-full"
+          priority
+        />
+      </div>
+
+      <div className="hidden sm:block md:hidden">
+        <Image
+          src="/diplomsMain/img-600x900.png"
+          alt="Обложка диплома"
+          width={600}
+          height={900}
+          className="w-full"
+          priority
+        />
+      </div>
+
+      <div className="hidden md:block lg:hidden">
+        <Image
+          src="/diplomsMain/img-980x700.png"
+          alt="Обложка диплома"
+          width={980}
+          height={700}
+          className="w-full"
+          priority
+        />
+      </div>
+
+      <div className="hidden lg:block">
+        <Image
+          src="/diplomsMain/img-1920x1080.png"
+          alt="Обложка диплома"
+          width={1920}
+          height={1080}
+          className="w-full"
+          priority
+        />
+      </div>
+    </div>
+  );
+};

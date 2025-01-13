@@ -1,4 +1,4 @@
-import NavLinks from "./nav-links"
+import NavLinksSidebar from "./navLinksSidebar"
 import clsx from "clsx";
 
 export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -15,7 +15,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
       >
         close
       </button>
-      <NavLinks />
+      <NavLinksSidebar />
     </div>
   );
 }
