@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 interface DropdownItem {
   name: string;
@@ -13,6 +14,7 @@ interface DropdownProps {
 }
 
 export default function Dropdown({ buttonLabel, items }: DropdownProps) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false); 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +35,7 @@ export default function Dropdown({ buttonLabel, items }: DropdownProps) {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex gap-6 cursor-pointer"
+        className="flex gap-6 cursor-pointer transition-all duration-150 hover:text-primary"
       >
         <p>{buttonLabel}</p>
         <Image
@@ -46,7 +48,7 @@ export default function Dropdown({ buttonLabel, items }: DropdownProps) {
       </div>
 
       <div
-        className={`absolute left-0 z-10 mt-4 w-56 origin-top-right bg-white shadow-[4px_7px_15px_0px_rgba(56,65,90,0.3019607843)] transition-all duration-300 ${
+        className={`absolute left-0 z-10 mt-5 w-60 origin-top-right bg-white shadow-[4px_7px_15px_0px_rgba(56,65,90,0.3019607843)] transition-all duration-300 ${
           isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
         }`}
         role="menu"
@@ -58,7 +60,9 @@ export default function Dropdown({ buttonLabel, items }: DropdownProps) {
             <Link
               key={index}
               href={item.href || "#"}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className={`block px-5 py-4 transition-all duration-150 hover:text-primary hover:bg-[#BEC7E2] ${
+                pathname === item.href && 'text-primary bg-[#BEC7E2]'
+              }`}
               onClick={() => setIsOpen(false)}
             >
               {item.name}

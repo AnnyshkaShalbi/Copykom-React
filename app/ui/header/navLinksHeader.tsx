@@ -1,10 +1,7 @@
 
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
 import Dropdown from '../common/dropdown';
-
  
 const links = [
   { name: 'Печать документов', href: '/services/copydoc' },
@@ -17,24 +14,20 @@ const links = [
 ];
  
 export default function NavLinksHeader() {
-  const pathname = usePathname();
-
   return (
     <div className="hidden md:block border-b border-primary w-full">
       <div className="wrapper p-4">
-      
-      <ul className='flex gap-11 items-center'>
-        <li>
-          <Link href={''}>Печать диплома</Link>
-        </li>
-        <li>
-          <Link href={''}>Проектная документация</Link>
-        </li>
-        <li>
-          <Dropdown buttonLabel='Другие услуги' items={links} />
-        </li>
-      </ul>
-        
+        <ul className='flex gap-11 items-center'>
+          <li>
+            <Link href={''} className='transition-all duration-150 hover:text-primary'>Печать диплома</Link>
+          </li>
+          <li>
+            <Link href={''} className='transition-all duration-150 hover:text-primary'>Проектная документация</Link>
+          </li>
+          <li>
+            <Dropdown buttonLabel='Другие услуги' items={links} />
+          </li>
+        </ul>
       </div>
     </div>
   );
