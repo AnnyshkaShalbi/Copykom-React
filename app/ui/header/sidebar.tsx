@@ -41,7 +41,6 @@ const NavLinks = () => {
         </li>
 
         {links.map((link) => {
-          
           return (
             <li key={link.name}>
               <Link
