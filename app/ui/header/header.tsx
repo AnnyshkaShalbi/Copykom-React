@@ -10,7 +10,7 @@ export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <header className="relative">
+    <header className="fixed top-0 left-0 w-full bg-white z-10">
       <div className="border-b border-primary w-full">
         <div className="wrapper flex justify-between items-center py-3 px-4">
           <button

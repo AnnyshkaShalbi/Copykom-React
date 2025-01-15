@@ -7,12 +7,12 @@ import Link from "next/link";
 
 export default function OrderDiploma() {
   return(
-    <div className="relative lg:pb-72">
+    <div className="relative md:pb-72 lg:pb-32 lg:border-b lg:border-primary">
       <div className="wrapper flex flex-col justify-between px-5">
         <Subtitle />
         <Title />
         <PS />
-        <div className="flex flex-col sm:flex-row sm:mt-4">
+        <div className="flex flex-col sm:flex-row sm:mt-4 md:relative">
           <StepByStep />
           <OrderDiplomaPrinting />
         </div>
@@ -39,7 +39,7 @@ const Subtitle = () => {
 const Title = () => {
   return (
     <>
-      <h1 className={`${tenor_sans.className} text-2xl sm:text-6xl sm:leading-[68px]`}>
+      <h1 className={`${tenor_sans.className} text-2xl sm:text-6xl sm:leading-[68px] lg:text-7xl lg:leading-[80px]`}>
         <p>ЗАКАЖИ <span className="text-primary">ПЕЧАТЬ</span></p>
         <p><span className="text-primary">ДИПЛОМА</span> У НАС</p>
       </h1>
@@ -49,8 +49,8 @@ const Title = () => {
 
 const PS = () => {
   return(
-    <div className="bg-[#E6ECFF] px-4 py-5 my-4 sm:order-last">
-      <p className={`${inter.className} text-xs sm:text-base text-primary`}>P.S. Только у нас ты можешь сделать обложку с фирменной эмблемой своего ВУЗа!</p>
+    <div className="bg-[#E6ECFF] p-4 my-4 sm:order-last md:max-w-96 md:px-6">
+      <p className={`${inter.className} text-xs sm:text-base md:text-xl text-primary`}>P.S. Только у нас ты можешь сделать обложку с фирменной эмблемой своего ВУЗа!</p>
     </div>
   )
 }
@@ -87,7 +87,9 @@ const StepByStep = () => {
 
 const OrderDiplomaPrinting = () => {
   return(
-    <Link href={'/'} className="rounded-full bg-primary w-[128px] h-[128px] lg:w-48 lg:h-48 flex justify-center items-center mx-auto">
+    <Link href={'/'} className="rounded-full bg-primary w-[128px] h-[128px] flex justify-center items-center mx-auto
+      md:w-48 md:h-48 md:absolute md:right-[10%] md:top-0
+      lg:-top-full">
       <div className="">
         <Image
           width={15}
@@ -95,9 +97,9 @@ const OrderDiplomaPrinting = () => {
           src="/arrowTR.svg"
           alt="Иконка"
         />
-        <p className="text-white text-xs lg:text-xl leading-4">ЗАКАЖИ</p>
-        <p className="text-white text-xs lg:text-xl leading-4">ПЕЧАТЬ</p>
-        <p className="text-white text-xs lg:text-xl leading-4">ДИПЛОМА</p>
+        <p className="text-white text-xs md:text-xl leading-4">ЗАКАЖИ</p>
+        <p className="text-white text-xs md:text-xl leading-4">ПЕЧАТЬ</p>
+        <p className="text-white text-xs md:text-xl leading-4">ДИПЛОМА</p>
       </div>
     </Link>
   )
@@ -108,16 +110,12 @@ const CoverDiplom = () => {
     <div className="w-full">
       <picture>
         <source
-          srcSet="/diplomsMain/img-1920x1080.png"
-          media="(min-width: 1200px)"
-        />
-        <source
-          srcSet="/diplomsMain/img-980x700.png"
+          srcSet="/diplomsMain/img-1920х1080.png"
           media="(min-width: 1024px)"
         />
         <source
-          srcSet="/diplomsMain/img-600x900.png"
-          media="(min-width: 600px)"
+          srcSet="/diplomsMain/img-980x700.png"
+          media="(min-width: 768px)"
         />
         <source
           srcSet="/diplomsMain/img-360x840.png"
@@ -128,7 +126,7 @@ const CoverDiplom = () => {
           alt="Заказать печать диплома | Копиком - копицентр для студентов"
           width={360}
           height={840}
-          className="w-full lg:absolute lg:top-0 lg:bottom-0 lg:-z-10"
+          className="w-full md:absolute md:right-0 md:bottom-0 md:-z-10 lg:top-auto lg:w-auto lg:object-contain lg:h-[85%]"
           priority
         />
       </picture>

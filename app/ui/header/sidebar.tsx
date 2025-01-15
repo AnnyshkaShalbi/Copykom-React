@@ -16,7 +16,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
   return (
     <div
       className={clsx(
-        "fixed top-[74px] left-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-50 py-2 px-6",
+        "fixed top-[65px] left-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-50 py-2 px-6",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >

@@ -4,7 +4,8 @@ import { inter, tenor_sans } from "../fonts";
 
 export default function Metro() {
   return(
-    <div className="flex flex-col">
+    <div className="wrapper flex flex-col justify-between px-5 gap-3
+      md:grid md:grid-cols-2 md:gap-6">
       {metro.map((item) => (
         <div key={item.title} className="flex items-start gap-3">
           <Image
