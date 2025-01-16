@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${noto_sans.className} antialiased flex flex-col min-h-screen`}>
         <Header />
-        <main className="flex-grow pt-20 md:pt-36 mb-8 md:mb-11">{children}</main>
+        <main className="flex-grow pt-20 md:pt-40 mb-8 md:mb-11">{children}</main>
         <Footer />
       </body>
     </html>

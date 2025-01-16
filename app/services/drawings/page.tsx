@@ -1,14 +1,7 @@
 import TitleForServices from "@/app/ui/common/titleForServices";
 import Tabs from "@/app/ui/common/tabs";
 import Table from "./table";
-
-const LeaveRequest = () => {
-  return(
-    <div>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur velit modi temporibus saepe repudiandae veniam dicta iure quae aliquid sequi. Magnam debitis libero ad optio.</p>
-    </div>
-  )
-}
+import LeaveRequest from "./leaveRequest";
 
 const tabsDrawings = [
   {
