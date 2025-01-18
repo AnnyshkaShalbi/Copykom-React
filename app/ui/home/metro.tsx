@@ -16,7 +16,7 @@ export default function Metro() {
           />
           <div>
             <h4 className={`${tenor_sans.className} uppercase text-xl mt-2`}>{item.title}</h4>
-            <p className="text-[#464F6A]">{item.address}</p>
+            <p className="text-gray">{item.address}</p>
             <p>{item.openinghouse}</p>
           </div>
         </div>

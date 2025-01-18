@@ -23,7 +23,7 @@ const Download = () => {
           src="/pdfFile.svg"
           alt="Загрузить файл диплома в формате pdf"
         />
-        <p className="text-[#464F6A] text-base">Загрузите файл в формате PDF</p>
+        <p className="text-gray text-base">Загрузите файл в формате PDF</p>
       </div>
       <Button>Загрузить файл</Button>
     </div>
@@ -39,8 +39,8 @@ const Form = () => {
       <p className="my-6 text-base">Менеджер свяжется с тобой по номеру для подтверждения заказа</p>
       <Input
         type="email"
-        label="Email"
-        placeholder="Введите ваш email"
+        label="Номер телефона"
+        placeholder="+7 980 324-12-32"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         error={error}

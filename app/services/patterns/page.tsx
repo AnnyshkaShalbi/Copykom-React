@@ -1,12 +1,12 @@
 import TitleForServices from "@/app/ui/common/titleForServices";
 import Tabs from "@/app/ui/common/tabs";
-import TableDrawings from "./table";
+import TablePatterns from "./table";
 import LeaveRequest from "../leaveRequest";
 
 const tabsDrawings = [
   {
     label:  "Прайс-лист",
-    content: <TableDrawings />
+    content: <TablePatterns />
   },
   {
     label:  "Оставь заявку",
@@ -18,8 +18,8 @@ export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
       <TitleForServices 
-        title="Печать чертежей"
-        subtitle="Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!" />
+        title="Печать лекал и выкроек"
+        subtitle="Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере (да-да, мы умеем это делать)." />
       <Tabs tabs={tabsDrawings} className="lg:hidden" />
       <DrawingsMobile />
     </div>
@@ -29,7 +29,7 @@ export default function Page() {
 const DrawingsMobile = () => {
   return(
     <div className="hidden lg:grid lg:gap-6 lg:grid-cols-[60%_35%]">
-      <TableDrawings />
+      <TablePatterns />
       <LeaveRequest />
     </div>
   )

@@ -25,13 +25,13 @@ export default function OrderDiploma() {
 const Subtitle = () => {
   return(
     <div className="mb-4">
-      <p className="text-[#464F6A] italic">
+      <p className="text-gray italic">
         <span className="block md:hidden">Хей, студент!</span>
         <span className="hidden md:block md:mb-2">
           Хей, студент! Тебя уже всё достало и ты хочешь поскорее сдать диплом?
         </span>
       </p>
-      <p className="text-[#464F6A] italic hidden md:block">Не парься —</p>
+      <p className="text-gray italic hidden md:block">Не парься —</p>
     </div>
   )
 } 

@@ -7,9 +7,9 @@ interface TitleProps {
 
 export default function TitleForServices({title, subtitle}: TitleProps) {
   return(
-    <div>
-      <h1 className={`${tenor_sans.className} uppercase text-lg mb-3`}>{title}</h1>
-      <p className="text-base text-[#464F6A]">{subtitle}</p>
+    <div className="mb-6">
+      <h1 className={`${tenor_sans.className} uppercase text-lg sm:text-3xl mb-3`}>{title}</h1>
+      <p className="text-base text-gray max-w-2xl">{subtitle}</p>
     </div>
   )
 }

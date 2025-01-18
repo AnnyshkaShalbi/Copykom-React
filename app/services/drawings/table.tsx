@@ -1,20 +1,20 @@
-export default function Table() {
+export default function TableDrawings() {
   return(
     <div className="overflow-x-scroll">
-      <table className="min-w-[650px] w-[650px] mt-4 border-t border-[#BEC7E2] border-collapse">
+      <table className="min-w-[650px] w-full border-t border-[#BEC7E2] border-collapse">
         <thead>
             <tr className="border-b border-border">
-              <th className="border-r border-border p-4 font-semibold w-80 text-left">Черно-белая печать чертежей</th>
-              <th className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A4</th>
-              <th className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A3</th>
-              <th className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A2</th>
-              <th className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A1</th>
-              <th className="p-4 min-w-16 font-normal text-[#464F6A] text-left">A0</th>
+              <th className="border-r border-border p-4 font-semibold min-w-52 text-left">Черно-белая печать чертежей</th>
+              <th className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A4</th>
+              <th className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A3</th>
+              <th className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A2</th>
+              <th className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A1</th>
+              <th className="p-4 min-w-16 font-normal text-gray text-left">A0</th>
             </tr>
         </thead>
         <tbody>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 text-[#464F6A] text-left">на обычной бумаге (80 г.)</td>
+            <td className="border-r border-border p-4 min-w-52 text-gray text-left">на обычной бумаге (80 г.)</td>
             <td className="border-r border-border p-4 min-w-16 font-normal text-left">10 ₽</td>
             <td className="border-r border-border p-4 min-w-16 font-normal text-left">22 ₽</td>
             <td className="border-r border-border p-4 min-w-16 font-normal text-left">60 ₽</td>
@@ -22,7 +22,7 @@ export default function Table() {
             <td className="p-4 min-w-16 font-normal text-left">130 ₽</td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 h-12"> </td>
+            <td className="border-r border-border p-4 min-w-52 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
@@ -30,17 +30,17 @@ export default function Table() {
             <td className="p-4 min-w-16 h-12"> </td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 font-semibold text-left">Цветная печать чертежей</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A4</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A3</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A2</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">A1</td>
-            <td className="p-4 min-w-16 font-normal text-[#464F6A] text-left">A0</td>
+            <td className="border-r border-border p-4 min-w-52 font-semibold text-left">Цветная печать чертежей</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A4</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A3</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A2</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">A1</td>
+            <td className="p-4 min-w-16 font-normal text-gray text-left">A0</td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border text-left flex justify-between w-80">
+            <td className="border-r border-border text-left flex justify-between min-w-52">
               <div className="w-full flex border-r border-border items-center">
-                <span className="text-[#464F6A]">на обычной бумаге (80 г.)</span>
+                <span className="text-gray">на обычной бумаге (80 г.)</span>
               </div>
               <div className="flex flex-col justify-between">
                 <div className="border-b border-border p-4">
@@ -111,7 +111,7 @@ export default function Table() {
             </td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 h-12"> </td>
+            <td className="border-r border-border p-4 min-w-52 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
@@ -119,15 +119,15 @@ export default function Table() {
             <td className="p-4 min-w-16 h-12"> </td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 font-semibold text-left">Черно-белая печать нестандартных чертежей</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А4*3</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А4*4</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А3*3</td>
-            <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А2*3</td>
-            <td className="p-4 min-w-16 font-normal text-[#464F6A] text-left">А1*3</td>
+            <td className="border-r border-border p-4 min-w-52 font-semibold text-left">Черно-белая печать нестандартных чертежей</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А4*3</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А4*4</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А3*3</td>
+            <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А2*3</td>
+            <td className="p-4 min-w-16 font-normal text-gray text-left">А1*3</td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 text-[#464F6A] text-left">
+            <td className="border-r border-border p-4 min-w-52 text-gray text-left">
                 на обычной бумаге (80 г.)
             </td>
             <td className="border-r border-border p-4 min-w-16 font-normal text-left">45 ₽</td>
@@ -137,7 +137,7 @@ export default function Table() {
             <td className="p-4 min-w-16 font-normal text-left">280 ₽</td>
           </tr>
           <tr className="border-b border-border">
-            <td className="border-r border-border p-4 w-80 h-12"> </td>
+            <td className="border-r border-border p-4 min-w-52 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
             <td className="border-r border-border p-4 min-w-16 h-12"> </td>
@@ -145,17 +145,17 @@ export default function Table() {
             <td className="p-4 min-w-16 h-12"> </td>
           </tr>
           <tr className="border-b border-border">
-              <td className="border-r border-border p-4 w-80 font-semibold text-left">Цветная печать чертежей</td>
-              <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А4*3</td>
-              <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А4*4</td>
-              <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А3*3</td>
-              <td className="border-r border-border p-4 min-w-16 font-normal text-[#464F6A] text-left">А2*3</td>
-              <td className="p-4 min-w-16 font-normal text-[#464F6A] text-left">А1*3</td>
+              <td className="border-r border-border p-4 min-w-52 font-semibold text-left">Цветная печать чертежей</td>
+              <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А4*3</td>
+              <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А4*4</td>
+              <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А3*3</td>
+              <td className="border-r border-border p-4 min-w-16 font-normal text-gray text-left">А2*3</td>
+              <td className="p-4 min-w-16 font-normal text-gray text-left">А1*3</td>
           </tr>
-          <tr className="border-b border-border">
-            <td className="border-r border-border text-left flex justify-between w-80">
+          <tr>
+            <td className="border-r border-border text-left flex justify-between min-w-52">
               <div className="w-full flex border-r border-border items-center">
-               <span className="text-[#464F6A]">на обычной бумаге (80 г.)</span>
+               <span className="text-gray">на обычной бумаге (80 г.)</span>
               </div>
               <div className="flex flex-col justify-between">
                 <div className="border-b border-border p-4">
@@ -164,7 +164,7 @@ export default function Table() {
                 <div className="border-b border-border p-4">
                   <span className="text-nowrap">{`( < 50 %)`}</span>
                 </div>
-                <div className="border-b border-border p-4">
+                <div className="p-4">
                   <span className="text-nowrap">{`( > 50 %)`}</span>
                 </div>
               </div>

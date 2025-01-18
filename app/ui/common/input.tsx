@@ -25,7 +25,7 @@ const Input = ({
   return (
     <div className={`flex flex-col ${className}`}>
       {label && (
-        <label className="mb-2 text-sm font-medium text-gray-700">
+        <label className="mb-2 text-sm text-gray after:content-['*'] after:text-red-500 after:pl-1">
           {label}
         </label>
       )}
@@ -35,10 +35,10 @@ const Input = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className={`px-4 py-2 border ${
-          error ? "border-red-500" : "border-gray-300"
-        } rounded-md focus:outline-none focus:ring-2 ${
-          error ? "focus:ring-red-500" : "focus:ring-blue-500"
+        className={`p-5 border outline-none ${
+          error ? "border-red-500" : "border-[#BEC7E2]"
+        } ${
+          error ? "focus:ring-red-500" : "focus:[#BEC7E2]"
         } ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}`}
         {...props}
       />
