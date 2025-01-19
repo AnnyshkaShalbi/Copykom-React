@@ -1,12 +1,12 @@
 import TitleForServices from "@/app/ui/common/titleForServices";
 import Tabs from "@/app/ui/common/tabs";
-import TablePatterns from "./table";
+import TableHardcover from "./table";
 import LeaveRequest from "../leaveRequest";
 
-const tabsPatterns = [
+const tabsHardcover = [
   {
     label:  "Прайс-лист",
-    content: <TablePatterns />
+    content: <TableHardcover />
   },
   {
     label:  "Оставь заявку",
@@ -18,18 +18,18 @@ export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
       <TitleForServices 
-        title="Печать лекал и выкроек"
-        subtitle="Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере (да-да, мы умеем это делать)." />
-      <Tabs tabs={tabsPatterns} className="lg:hidden" />
-      <DrawingsMobile />
+        title="твёрдый переплёт дипломов"
+        subtitle="Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете" />
+      <Tabs tabs={tabsHardcover} className="lg:hidden" />
+      <HardcoverMobile />
     </div>
   );
 }
 
-const DrawingsMobile = () => {
+const HardcoverMobile = () => {
   return(
     <div className="hidden lg:grid lg:gap-6 lg:grid-cols-[60%_35%]">
-      <TablePatterns />
+      <TableHardcover />
       <LeaveRequest />
     </div>
   )

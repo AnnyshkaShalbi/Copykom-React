@@ -19,10 +19,10 @@ export default function NavLinksHeader() {
       <div className="wrapper p-4">
         <ul className='flex gap-11 items-center'>
           <li>
-            <Link href={''} className='transition-all duration-150 hover:text-primary'>Печать диплома</Link>
+            <Link href={'/order'} className='transition-all duration-150 hover:text-primary'>Печать диплома</Link>
           </li>
           <li>
-            <Link href={''} className='transition-all duration-150 hover:text-primary'>Проектная документация</Link>
+            <Link href={'/services/projectdoc'} className='transition-all duration-150 hover:text-primary'>Проектная документация</Link>
           </li>
           <li>
             <Dropdown buttonLabel='Другие услуги' items={links} />

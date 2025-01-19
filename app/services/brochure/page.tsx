@@ -1,12 +1,12 @@
 import TitleForServices from "@/app/ui/common/titleForServices";
-import TablePresentations from "./table";
+import TableBrochure from "./table";
 import LeaveRequest from "../leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
 
-const tabsPresentations = [
+const tabsBrochure = [
   {
     label:  "Прайс-лист",
-    content: <TablePresentations />
+    content: <TableBrochure />
   },
   {
     label:  "Оставь заявку",
@@ -18,18 +18,18 @@ export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
       <TitleForServices 
-        title="Печать презентаций"
-        subtitle="Если тебе нужна презентация, распечатанная в хорошем качестве, то ты по адресу." />
-      <Tabs tabs={tabsPresentations} className="lg:hidden" />
-      <CopydocMobile />
+        title="брошюровка на пластиковую пружину"
+        subtitle="Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3." />
+      <Tabs tabs={tabsBrochure} className="lg:hidden" />
+      <BrochureMobile />
     </div>
   );
 }
 
-const CopydocMobile = () => {
+const BrochureMobile = () => {
   return(
     <div className="hidden lg:grid lg:gap-6 lg:grid-cols-[60%_35%]">
-      <TablePresentations />
+      <TableBrochure />
       <LeaveRequest />
     </div>
   )
