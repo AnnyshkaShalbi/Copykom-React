@@ -12,6 +12,7 @@ export default {
         primary: "#1E3A8F",
         border: "#EDEFF5",
         gray: "#464F6A",
+        redDark: "#AD0019",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
