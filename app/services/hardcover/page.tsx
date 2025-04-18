@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableHardcover from "./table";
 import LeaveRequest from "../leaveRequest";
@@ -17,7 +17,7 @@ const tabsHardcover = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="твёрдый переплёт дипломов"
         subtitle="Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете" />
       <Tabs tabs={tabsHardcover} className="lg:hidden" />

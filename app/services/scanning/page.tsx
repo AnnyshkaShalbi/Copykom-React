@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableScanning from "./table";
 import LeaveRequest from "../leaveRequest";
@@ -17,7 +17,7 @@ const tabsScanning = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="Сканирование документов"
         subtitle="Любые документы могут быть отсканированы как в ч/б варианте, так и в цвете! " />
       <Tabs tabs={tabsScanning} className="lg:hidden" />

@@ -31,7 +31,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4 sm:items-end">
           <Socials />
 
-          <p className="text-sm">Политика конфиденциальности</p>
+          <Link href="/privacy" className="text-sm">Политика конфиденциальности</Link>
           <p className="text-sm">© 2015-2025 Копиком</p>
         </div>
       </div>

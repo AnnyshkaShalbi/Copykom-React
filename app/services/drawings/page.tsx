@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableDrawings from "./table";
 import LeaveRequest from "../leaveRequest";
@@ -17,7 +17,7 @@ const tabsDrawings = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="Печать чертежей"
         subtitle="Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!" />
       <Tabs tabs={tabsDrawings} className="lg:hidden" />

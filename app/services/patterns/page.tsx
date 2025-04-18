@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TablePatterns from "./table";
 import LeaveRequest from "../leaveRequest";
@@ -17,7 +17,7 @@ const tabsPatterns = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="Печать лекал и выкроек"
         subtitle="Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере (да-да, мы умеем это делать)." />
       <Tabs tabs={tabsPatterns} className="lg:hidden" />

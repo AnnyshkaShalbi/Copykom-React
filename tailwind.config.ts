@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -34,6 +35,16 @@ export default {
   },
   plugins: [
     require('tailwindcss-animation-delay'),
+    function({ addComponents }: { addComponents: any }) {
+      addComponents({
+        '.link': {
+          '@apply text-primary border-b border-solid border-transparent': {},
+          '&:hover': {
+            '@apply border-primary transition-all duration-300 ease-in-out': {},
+          }
+        }
+      })
+    }
   ],
 } satisfies Config;
 

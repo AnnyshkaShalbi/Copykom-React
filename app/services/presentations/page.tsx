@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import TablePresentations from "./table";
 import LeaveRequest from "../leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
@@ -17,7 +17,7 @@ const tabsPresentations = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="Печать презентаций"
         subtitle="Если тебе нужна презентация, распечатанная в хорошем качестве, то ты по адресу." />
       <Tabs tabs={tabsPresentations} className="lg:hidden" />

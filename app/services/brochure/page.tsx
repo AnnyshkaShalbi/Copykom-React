@@ -1,4 +1,4 @@
-import TitleForServices from "@/app/ui/common/titleForServices";
+import Title from "@/app/ui/common/title";
 import TableBrochure from "./table";
 import LeaveRequest from "../leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
@@ -17,7 +17,7 @@ const tabsBrochure = [
 export default function Page() {
   return(
     <div className="wrapper flex flex-col justify-between px-5">
-      <TitleForServices 
+      <Title 
         title="брошюровка на пластиковую пружину"
         subtitle="Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3." />
       <Tabs tabs={tabsBrochure} className="lg:hidden" />
