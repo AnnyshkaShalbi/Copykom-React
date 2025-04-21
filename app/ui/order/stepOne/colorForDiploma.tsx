@@ -1,18 +1,16 @@
 import { blueColors, redColors } from "@/app/lib/placeholder-data"
 import ItemTitle from './itemTitle'
 import Image from "next/image"
+import { useOrder } from '@/app/context/OrderContext';
 
-interface CoverForDiplomaProps {
-  selectedColor: string;
-  selectedCover: number;
-  setSelectedCover: (id: number) => void;
-}
 
-export default function CoverForDiploma({ 
-  selectedColor, 
-  selectedCover,
-  setSelectedCover 
-}: CoverForDiplomaProps) {
+export default function CoverForDiploma() {
+  const {
+    selectedColor,
+    selectedCover,
+    setSelectedCover,
+  } = useOrder();
+
   const currentImages = selectedColor === 'bg-red-dark' ? redColors : blueColors;
 
   return(

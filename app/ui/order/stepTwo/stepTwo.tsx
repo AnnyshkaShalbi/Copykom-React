@@ -1,11 +1,15 @@
-
+import UpdateFileForm from "./updateFileForm"
+import UpdateFileOption from "./updateFileOption"
 
 export default function StepTwo() {
 
   return(
-    <div className="flex flex-col gap-10">
-      Step 2
-    </div>
+    <>
+      <div className="grid grid-cols-[60%_37.1%] gap-[1.75rem]">
+        <UpdateFileForm />
+        <UpdateFileOption />
+      </div>
+    </>
   )
 }
 

@@ -1,12 +1,13 @@
 import ItemTitle from './itemTitle';
 import CheckboxCircle from '@/app/ui/common/checkboxCircle'
+import { useOrder } from '@/app/context/OrderContext';
 
-interface ColorForCoverProps {
-  selectedColor: string;
-  setSelectedColor: (color: string) => void;
-}
 
-export default function ColorForCover({ selectedColor, setSelectedColor } : ColorForCoverProps){
+export default function ColorForCover(){
+  const {
+    selectedColor,
+    setSelectedColor,
+  } = useOrder();
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);

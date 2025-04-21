@@ -1,13 +1,15 @@
 import { logos } from "@/app/lib/placeholder-data"
 import Image from "next/image"
 import ItemTitle from "./itemTitle"
+import { useOrder } from '@/app/context/OrderContext';
 
-interface ColorForCoverProps {
-  selectedLogo: number;
-  setSelectedLogo: (id: number) => void;
-}
 
-export default function LogoForCover({ selectedLogo, setSelectedLogo }: ColorForCoverProps) {
+export default function LogoForCover() {
+  const {
+    selectedLogo,
+    setSelectedLogo,
+  } = useOrder();
+
   return(
     <div>
       <ItemTitle index={3} title="добавь фирменную эмблему вуза" />

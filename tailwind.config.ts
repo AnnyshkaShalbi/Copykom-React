@@ -15,6 +15,7 @@ export default {
         'border': "#EDEFF5",
         'gray': "#464F6A",
         'green': "#48C95F",
+        'grey-light': '#BEC7E2',
         'red-dark': "#AD0019",
         'background': "var(--background)",
         'foreground': "var(--foreground)",
