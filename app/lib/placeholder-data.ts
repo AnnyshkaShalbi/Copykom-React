@@ -40,7 +40,7 @@ const blueColors = [
   {
     id: 0,
     price: 500,
-    title: "Без тиснения",
+    title: "Без тиснения",
     image: "/covers/blue/withoutEmblems/empty.png",
     diplomWork: false,
     diplomProject: false,

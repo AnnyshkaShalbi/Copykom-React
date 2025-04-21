@@ -14,6 +14,7 @@ export default {
         'primary-light': "#F0F6FB",
         'border': "#EDEFF5",
         'gray': "#464F6A",
+        'green': "#48C95F",
         'red-dark': "#AD0019",
         'background': "var(--background)",
         'foreground': "var(--foreground)",
