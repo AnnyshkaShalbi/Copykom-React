@@ -1,7 +1,7 @@
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TableScanning from "./table";
-import LeaveRequest from "../leaveRequest";
+import TableScanning from "../../ui/services/scanning/table";
+import LeaveRequest from "../../ui/services/leaveRequest";
 
 const tabsScanning = [
   {

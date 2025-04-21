@@ -1,7 +1,7 @@
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TableDrawings from "./table";
-import LeaveRequest from "../leaveRequest";
+import TableDrawings from "../../ui/services/drawings/table";
+import LeaveRequest from "../../ui/services/leaveRequest";
 
 const tabsDrawings = [
   {

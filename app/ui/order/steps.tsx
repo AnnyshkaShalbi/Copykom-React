@@ -1,4 +1,4 @@
-import { inter, tenor_sans } from "../ui/fonts";
+import { inter, tenor_sans } from "../fonts";
 
 const steps = [
   {

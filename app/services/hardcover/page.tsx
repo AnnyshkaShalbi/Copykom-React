@@ -1,7 +1,7 @@
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TableHardcover from "./table";
-import LeaveRequest from "../leaveRequest";
+import TableHardcover from "../../ui/services/hardcover/table";
+import LeaveRequest from "../../ui/services/leaveRequest";
 
 const tabsHardcover = [
   {

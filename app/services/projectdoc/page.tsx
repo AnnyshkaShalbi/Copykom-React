@@ -1,6 +1,6 @@
 import Title from "@/app/ui/common/title";
-import TableProjectdoc from "./table";
-import LeaveRequest from "../leaveRequest";
+import TableProjectdoc from "../../ui/services/projectdoc/table";
+import LeaveRequest from "../../ui/services/leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
 
 const tabsBrochure = [

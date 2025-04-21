@@ -1,6 +1,6 @@
 import Title from "@/app/ui/common/title";
-import Steps from './steps'
-import ChooseCover from './chooseCover'
+import Steps from '../ui/order/steps'
+import ChooseCover from '../ui/order/chooseCover'
 
 export default function Page() {
   return(

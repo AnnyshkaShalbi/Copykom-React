@@ -1,7 +1,7 @@
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TablePatterns from "./table";
-import LeaveRequest from "../leaveRequest";
+import TablePatterns from "../../ui/services/patterns/table";
+import LeaveRequest from "../../ui/services/leaveRequest";
 
 const tabsPatterns = [
   {

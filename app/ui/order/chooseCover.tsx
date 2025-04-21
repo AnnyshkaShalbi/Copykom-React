@@ -1,8 +1,8 @@
-import { inter, tenor_sans } from "../ui/fonts";
+import { inter, tenor_sans } from "../fonts";
 import { blueColors, redColors, logos } from "@/app/lib/placeholder-data"
 import Image from "next/image"
-import CheckboxCircle from "../ui/common/checkboxCircle"
-import { Button } from "../ui/common/button";
+import CheckboxCircle from "../common/checkboxCircle"
+import { Button } from "../common/button";
 
 export default function ChooseCover() {
   return(
@@ -35,8 +35,8 @@ const ColorForCover = () => {
     <div className="flex gap-14 items-center">
       <ItemTitle index={1} title="цвет" />
       <div className="flex gap-4 items-center">
-        <CheckboxCircle color="red-dark" />
-        <CheckboxCircle color="primary" />
+        <CheckboxCircle color="bg-red-dark" />
+        <CheckboxCircle color="bg-primary" />
       </div>
     </div>
   )

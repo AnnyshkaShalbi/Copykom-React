@@ -10,12 +10,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#1E3A8F",
-        border: "#EDEFF5",
-        gray: "#464F6A",
-        redDark: "#AD0019",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        'primary': "#1E3A8F",
+        'primary-light': "#F0F6FB",
+        'border': "#EDEFF5",
+        'gray': "#464F6A",
+        'red-dark': "#AD0019",
+        'background': "var(--background)",
+        'foreground': "var(--foreground)",
       },
       animation: {
         'preloader-square': 'preloaderAnimation 1.2s infinite ease-in-out',
