@@ -10,15 +10,55 @@ interface FinalCoverProps {
   selectedLogo: number;
 }
 
+// Функция для определения пути к финальной обложке
+const getFinalCoverPath = (
+  isRed: boolean,
+  diplomWork: boolean,
+  diplomProject: boolean,
+  finalWork: boolean,
+  masterThesis: boolean,
+  logoTitle?: string
+): string => {
+  const colorPath = isRed ? 'red' : 'blue';
+  const basePath = '/covers';
+
+  // Определяем тип работы
+  let workType = '';
+  if (diplomWork) workType = 'diplomWork';
+  else if (diplomProject) workType = 'diplomProject';
+  else if (finalWork) workType = 'finalWork';
+  else if (masterThesis) workType = 'masterThesis';
+  else return `${basePath}/${colorPath}/withoutEmblems/empty.png`;
+
+  // Если нет логотипа или "Без эмблемы"
+  if (!logoTitle || logoTitle === "Без эмблемы") {
+    return `${basePath}/${colorPath}/withoutEmblems/${workType}.png`;
+  }
+
+  // Маппинг названий логотипов на пути
+  const logoPathMap: Record<string, string> = {
+    "МАДИ": "madi",
+    "МАИ": "mai",
+    "Финашка": "fin",
+    "Бауманка": "mgtu",
+    "МЭИ": "mei"
+  };
+
+  const logoPath = logoPathMap[logoTitle];
+  if (!logoPath) return `${basePath}/${colorPath}/withoutEmblems/${workType}.png`;
+
+  return `${basePath}/${colorPath}/${logoPath}/${workType}.png`;
+};
+
 export default function FinalCover({ selectedColor, selectedCover, selectedLogo }: FinalCoverProps) {
   // Получаем выбранную обложку
-  const currentColors = selectedColor === 'bg-primary' ? blueColors : redColors;
+  const currentColors = selectedColor === 'bg-primary' ? redColors : blueColors;
   const selectedCoverItem = currentColors.find(item => item.id === selectedCover) || currentColors[0];
   
   // Получаем выбранный логотип
   const selectedLogoItem = logos.find(item => item.id === selectedLogo) || logos[0];
   
-  // Рассчитываем итоговую сумму (обрабатываем случай когда price может быть boolean)
+  // Рассчитываем итоговую сумму
   const coverPrice = selectedCoverItem.price;
   const logoPrice = typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0;
   const totalPrice = coverPrice + logoPrice;
@@ -32,38 +72,39 @@ export default function FinalCover({ selectedColor, selectedCover, selectedLogo 
     return "Без тиснения";
   };
 
+  // Получаем путь к финальной обложке
+  const finalCoverPath = getFinalCoverPath(
+    selectedColor === 'bg-red-dark',
+    selectedCoverItem.diplomWork,
+    selectedCoverItem.diplomProject,
+    selectedCoverItem.finalWork,
+    selectedCoverItem.masterThesis,
+    selectedLogoItem.title === "Без эмблемы" ? undefined : selectedLogoItem.title
+  );
+
   return(
     <div>
       <ItemTitle index={4} title="твой выбор" />
       <div className="mt-6 bg-[#F1F4F7] p-5 max-w-[615px]">
         <div className="grid grid-cols-[35%_65%] gap-4">
-          <div className="flex items-center justify-center bg-white p-4 relative">
+          <div className="flex items-center justify-center p-4 relative h-44">
             <Image 
               width={79}
               height={110}
-              src={selectedCoverItem.image}
-              alt="Выбранная обложка для диплома"
+              src={finalCoverPath}
+              alt="Итоговая обложка для диплома"
+              className="h-44 w-auto"
             />
-            {selectedLogoItem.image && (
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Image 
-                  width={40}
-                  height={40}
-                  src={selectedLogoItem.image}
-                  alt={selectedLogoItem.title}
-                />
-              </div>
-            )}
           </div>
 
           <div className="flex flex-col gap-2">
             <p className="text-gray">
-              {selectedColor === 'bg-primary' ? 'Синяя' : 'Красная'} обложка
+              {selectedColor === 'bg-primary' ? 'Красная' : 'Синяя'} обложка
             </p>
             <p className="text-gray">С тиснением {getEmbossingType()}</p>
-            {selectedLogoItem.id !== 0 && (
-              <p className="text-gray">{selectedLogoItem.title}</p>
-            )}
+            <p className="text-gray">
+              {selectedLogoItem.id === 0 ? "Без эмблемы" : selectedLogoItem.title}
+            </p>
             <p className={`${inter.className} text-primary text-lg`}>
               {totalPrice} ₽
             </p>

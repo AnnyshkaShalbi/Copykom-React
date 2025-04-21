@@ -18,11 +18,11 @@ const steps = [
   },
 ]
 
-interface Steps {
+interface StepsProps {
   active: number;
 }
 
-export default function Steps({ active }: Steps) {
+export default function Steps({ active }: StepsProps) {
   return(
     <div className="flex gap-10 mb-10">
       {steps.map((item) => {
