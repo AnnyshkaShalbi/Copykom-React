@@ -17,6 +17,8 @@ export default {
         'green': "#48C95F",
         'grey-light': '#BEC7E2',
         'red-dark': "#AD0019",
+        'dark': "#0B0B0C",
+        'checkbox': "#EEF1F5",
         'background': "var(--background)",
         'foreground': "var(--foreground)",
       },

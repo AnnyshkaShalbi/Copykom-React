@@ -1,5 +1,6 @@
 import UpdateFileForm from "./updateFileForm"
 import UpdateFileOption from "./updateFileOption"
+import Readness from "./readness"
 
 export default function StepTwo() {
 
@@ -9,6 +10,7 @@ export default function StepTwo() {
         <UpdateFileForm />
         <UpdateFileOption />
       </div>
+      <Readness />
     </>
   )
 }

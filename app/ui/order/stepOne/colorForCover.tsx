@@ -19,11 +19,11 @@ export default function ColorForCover(){
       <div className="flex gap-4 items-center">
         <CheckboxCircle 
           color="bg-red-dark" 
-          active={selectedColor}
+          active={selectedColor === 'bg-red-dark'}
           onClick={() => handleColorSelect('bg-red-dark')} />
         <CheckboxCircle 
           color="bg-primary" 
-          active={selectedColor}
+          active={selectedColor === 'bg-primary'}
           onClick={() => handleColorSelect('bg-primary')} />
       </div>
     </div>

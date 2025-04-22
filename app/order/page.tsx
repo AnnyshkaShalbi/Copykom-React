@@ -6,6 +6,7 @@ import Title from "@/app/ui/common/title";
 import Steps from '../ui/order/steps'
 import StepOne from '../ui/order/stepOne/stepOne'
 import StepTwo from '../ui/order/stepTwo/stepTwo'
+import StepThree from '../ui/order/stepThree/stepThree';
 
 export default function Page() {
   const {
@@ -24,6 +25,7 @@ export default function Page() {
       <Steps active={currentStep ?? 1} />
       { currentStep === 1 && <StepOne /> }
       { currentStep === 2 && <StepTwo /> }
+      { currentStep === 3 && <StepThree /> }
     </div>
   );
 }

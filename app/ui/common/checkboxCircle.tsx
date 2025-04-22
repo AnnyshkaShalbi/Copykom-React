@@ -1,10 +1,10 @@
-interface CheckboxProps {
+interface CheckboxCircleProps {
   color: string;
-  active: string;
+  active: boolean; 
   onClick: () => void;
 }
 
-export default function CheckboxCircle({ color, active, onClick }: CheckboxProps) {
+export default function CheckboxCircle({ color, active, onClick }: CheckboxCircleProps) {
   return (
     <div 
       className={`
@@ -19,7 +19,7 @@ export default function CheckboxCircle({ color, active, onClick }: CheckboxProps
       onClick={onClick}
     >
       {/* Внутренний белый кружок с анимацией */}
-      {active === color && (
+      {active && ( 
         <div 
           className="
             absolute w-2.5 h-2.5 
