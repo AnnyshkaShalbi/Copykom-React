@@ -1,4 +1,5 @@
 import { inter, tenor_sans } from "../fonts";
+import { useOrder } from '@/app/context/OrderContext';
 
 const steps = [
   {
@@ -23,6 +24,10 @@ interface StepsProps {
 }
 
 export default function Steps({ active }: StepsProps) {
+  const {
+    currentStep,
+  } = useOrder();
+
   return(
     <div className="flex gap-10 mb-10">
       {steps.map((item) => {
@@ -36,10 +41,10 @@ export default function Steps({ active }: StepsProps) {
         ].join(' ');
 
         return(
-          <div key={item.index} className="flex min-w-72 items-start gap-4">
+          <div key={item.index} className="flex lg:min-w-72 items-start gap-4">
             <span className={circleClasses}>{item.index}</span>
-            <div>
-              <span className={`${tenor_sans.className} text-2xl uppercase`}>{item.title}</span>
+            <div className={`${currentStep != item.index && 'hidden'} lg:block`}>
+              <span className={`${tenor_sans.className} text-2xl uppercase whitespace-nowrap`}>{item.title}</span>
               <p className={`${inter.className} pt-2 text-sm text-gray max-w-60`}>{item.desc}</p>
             </div>
           </div>
