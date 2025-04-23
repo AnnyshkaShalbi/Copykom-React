@@ -54,22 +54,17 @@ export default function UpdateFileForm() {
       />
       <label htmlFor="updateFileInput" className="flex flex-col justify-center items-center text-gray text-sm leading-normal cursor-pointer">
         <Image
-          src={'./pdfFile.svg'}
+          src={fileInfo ? './fileDone.svg' : './pdfFile.svg'}
           height={100}
           width={100}
-          alt="Загрузить файл диплома в формате pdf"
+          alt={fileInfo ? "PDF файл загружен" : "Загрузить файл диплома в формате pdf"}
+          className="fade-in"
         />
-        <p>Загрузите файл в формате PDF</p>
+        { fileInfo ? <p>Количество страниц — {fileInfo.pages}</p> : <p>Загрузите файл в формате PDF</p> }
+        { fileInfo && <p>Размер файла — {fileInfo.size}</p> }
+        
       </label>
       <Button onClick={handleButtonClick}>Загрузить файл</Button>
-      
-      {fileInfo && (
-        <div className="mt-4 text-center">
-          <p className="text-sm"><strong>Имя файла:</strong> {fileInfo.name}</p>
-          <p className="text-sm"><strong>Размер:</strong> {fileInfo.size}</p>
-          <p className="text-sm"><strong>Страниц:</strong> {fileInfo.pages ?? 'Не удалось определить'}</p>
-        </div>
-      )}
     </div>
   );
 }

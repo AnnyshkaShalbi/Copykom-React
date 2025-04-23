@@ -41,3 +41,12 @@ body {
 .animate-scale-in {
   animation: scaleIn 0.15s ease-out forwards;
 }
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
