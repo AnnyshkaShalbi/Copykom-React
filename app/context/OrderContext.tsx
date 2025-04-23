@@ -8,6 +8,10 @@ type OrderState = {
   selectedColor: string;
   selectedCover: number;
   selectedLogo: number;
+  selectedPrintColor: string;
+  pocketForReview: boolean;
+  pocketCD: boolean;
+  plasticFile: boolean;
 };
 
 type OrderActions = {
@@ -15,9 +19,12 @@ type OrderActions = {
   setSelectedColor: (color: string) => void;
   setSelectedCover: (cover: number) => void;
   setSelectedLogo: (logo: number) => void;
+  setSelectedPrintColor: (print: string) => void;
+  setPocketForReview: (value: boolean) => void;
+  setPocketCD: (value: boolean) => void;
+  setPlasticFile: (value: boolean) => void;
   goToNextStep: () => void;
   goToPrevStep: () => void;
-  // Новые методы
   getFinalCoverPath: () => string;
   getTotalPrice: () => number;
   getEmbossingType: () => string;
@@ -33,6 +40,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     selectedColor: 'bg-primary',
     selectedCover: 0,
     selectedLogo: 0,
+    selectedPrintColor: 'black-white',
+    pocketForReview: false,
+    pocketCD: false,
+    plasticFile: false,
   });
 
   // Получаем текущие выбранные элементы
@@ -49,12 +60,19 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     // Основные методы
     setCurrentStep: (step) => setState(prev => ({ ...prev, currentStep: step })),
     setSelectedColor: (color) => setState(prev => ({ ...prev, selectedColor: color })),
+    setSelectedPrintColor: (print) => setState(prev => ({ ...prev, selectedPrintColor: print })),
     setSelectedCover: (cover) => setState(prev => ({ ...prev, selectedCover: cover })),
     setSelectedLogo: (logo) => setState(prev => ({ ...prev, selectedLogo: logo })),
+
+    // Методы для чекбоксов
+    setPocketForReview: (value) => setState(prev => ({ ...prev, pocketForReview: value })),
+    setPocketCD: (value) => setState(prev => ({ ...prev, pocketCD: value })),
+    setPlasticFile: (value) => setState(prev => ({ ...prev, plasticFile: value })),
+    
+
     goToNextStep: () => setState(prev => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 3) })),
     goToPrevStep: () => setState(prev => ({ ...prev, currentStep: Math.max(prev.currentStep - 1, 1) })),
 
-    // Перенесенная логика из FinalCover
     getFinalCoverPath: () => {
       const colorPath = state.selectedColor === 'bg-red-dark' ? 'red' : 'blue';
       const basePath = '/covers';
@@ -99,7 +117,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       if (selectedCoverItem.finalWork) return "ВКР";
       return "Без тиснения";
     }
-  }), [state.selectedColor, state.selectedCover, state.selectedLogo, selectedCoverItem, selectedLogoItem]);
+  }), [state.selectedColor, state.selectedPrintColor, state.selectedCover, state.selectedLogo, selectedCoverItem, selectedLogoItem]);
 
   const value = useMemo<OrderContextValue>(() => ({
     ...state,

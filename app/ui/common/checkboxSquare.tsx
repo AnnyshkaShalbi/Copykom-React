@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 interface CheckboxSquareProps {
   active: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function CheckboxSquare({ active, onClick }: CheckboxSquareProps) {
@@ -20,12 +20,6 @@ export default function CheckboxSquare({ active, onClick }: CheckboxSquareProps)
       role="checkbox"
       aria-checked={active}
       tabIndex={0} // Для фокуса
-      onKeyDown={(e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
     >
       {active && (
         <Image

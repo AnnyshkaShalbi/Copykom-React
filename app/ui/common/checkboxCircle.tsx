@@ -1,7 +1,7 @@
 interface CheckboxCircleProps {
   color: string;
   active: boolean; 
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function CheckboxCircle({ color, active, onClick }: CheckboxCircleProps) {
