@@ -24,7 +24,7 @@ export default function CoverForDiploma() {
           >
             <div 
               className={`
-                h-56 bg-[#F1F4F7] flex items-center justify-center border-2 border-solid
+                h-56 bg-light flex items-center justify-center border-2 border-solid
                 transition-all duration-300 p-5 relative
                 ${selectedCover === item.id 
                   ? 'border-primary' 

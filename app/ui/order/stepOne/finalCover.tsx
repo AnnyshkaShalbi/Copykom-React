@@ -28,7 +28,7 @@ export default function FinalCover() {
   return(
     <div>
       <ItemTitle index={4} title="твой выбор" />
-      <div className="mt-6 bg-[#F1F4F7] p-5 max-w-[615px]">
+      <div className="mt-6 bg-light p-5 max-w-[615px]">
         <div className="grid grid-cols-[35%_65%] gap-4">
           <div className="flex items-center justify-center p-4 relative h-44">
             <Image 

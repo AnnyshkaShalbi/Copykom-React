@@ -1,15 +1,12 @@
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { getPageCount, formatFileSize } from "@/app/lib/utils"
+import { useOrder } from "@/app/context/OrderContext";
 
 export default function UpdateFileForm() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileInfo, setFileInfo] = useState<{
-    name: string;
-    size: string;
-    pages: number | null;
-  } | null>();
+  const { pdfFile, setPdfFile } = useOrder();
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
@@ -28,15 +25,9 @@ export default function UpdateFileForm() {
 
       const pageCount = await getPageCount(file);
       
-      setFileInfo({
+      setPdfFile({
         name: file.name,
         size: formatFileSize(file.size),
-        pages: pageCount
-      });
-      
-      console.log('Файл загружен:', {
-        name: file.name,
-        size: file.size,
         pages: pageCount
       });
     }
@@ -54,14 +45,14 @@ export default function UpdateFileForm() {
       />
       <label htmlFor="updateFileInput" className="flex flex-col justify-center items-center text-gray text-sm leading-normal cursor-pointer">
         <Image
-          src={fileInfo ? './fileDone.svg' : './pdfFile.svg'}
+          src={pdfFile ? './fileDone.svg' : './pdfFile.svg'}
           height={100}
           width={100}
-          alt={fileInfo ? "PDF файл загружен" : "Загрузить файл диплома в формате pdf"}
+          alt={pdfFile ? "PDF файл загружен" : "Загрузить файл диплома в формате pdf"}
           className="fade-in"
         />
-        { fileInfo ? <p>Количество страниц — {fileInfo.pages}</p> : <p>Загрузите файл в формате PDF</p> }
-        { fileInfo && <p>Размер файла — {fileInfo.size}</p> }
+        { pdfFile ? <p>Количество страниц — {pdfFile.pages}</p> : <p>Загрузите файл в формате PDF</p> }
+        { pdfFile && <p>Размер файла — {pdfFile.size}</p> }
         
       </label>
       <Button onClick={handleButtonClick}>Загрузить файл</Button>

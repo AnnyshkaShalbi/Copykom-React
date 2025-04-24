@@ -16,6 +16,7 @@ export default {
         'gray': "#464F6A",
         'green': "#48C95F",
         'grey-light': '#BEC7E2',
+        'light': '#F1F4F7',
         'red-dark': "#AD0019",
         'dark': "#0B0B0C",
         'checkbox': "#EEF1F5",

@@ -63,7 +63,7 @@ const StepByStep = () => {
           return(
             <div key={index} className="flex gap-4 items-center">
               <span className={clsx(
-                'text-xs sm:text-base bg-[#F1F4F7] w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full', {
+                'text-xs sm:text-base bg-light w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full', {
                   'bg-primary': index === steps.length - 1,
                 },
               )}>

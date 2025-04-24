@@ -22,7 +22,7 @@ export default function LogoForCover() {
           >
             <div 
               className={`
-                h-24 flex items-center justify-center p-5 bg-[#F1F4F7] border-2 border-solid 
+                h-24 flex items-center justify-center p-5 bg-light border-2 border-solid 
                 transition-all duration-300 relative
                 ${selectedLogo === item.id 
                   ? 'border-primary'

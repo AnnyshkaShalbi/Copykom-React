@@ -1,7 +1,19 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 import { blueColors, redColors, logos } from "@/app/lib/placeholder-data";
+
+type ReadinessDate = {
+  formattedDate: string;
+  formattedTime: string;
+  timestamp: number;
+};
+
+type FileInfo = {
+  name: string;
+  size: string;
+  pages: number | null;
+} | null;
 
 type OrderState = {
   currentStep: number;
@@ -12,6 +24,9 @@ type OrderState = {
   pocketForReview: boolean;
   pocketCD: boolean;
   plasticFile: boolean;
+  pdfFile: FileInfo;
+  coloredPages: number[];
+  readinessDate: ReadinessDate;
 };
 
 type OrderActions = {
@@ -26,8 +41,12 @@ type OrderActions = {
   goToNextStep: () => void;
   goToPrevStep: () => void;
   getFinalCoverPath: () => string;
+  getCoverPrice: () => number;
   getTotalPrice: () => number;
   getEmbossingType: () => string;
+  setPdfFile: (fileInfo: FileInfo) => void;
+  toggleColoredPage: (pageNumber: number) => void;
+  updateReadinessDate: () => void; // Добавлена новая функция
 };
 
 type OrderContextValue = OrderState & OrderActions;
@@ -35,6 +54,38 @@ type OrderContextValue = OrderState & OrderActions;
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
 
 export function OrderProvider({ children }: { children: ReactNode }) {
+  // Функция для вычисления даты готовности
+  const calculateReadinessDate = (): ReadinessDate => {
+    const now = new Date();
+    const currentHours = now.getHours();
+    const readinessDate = new Date(now);
+    
+    // Добавляем дни в зависимости от текущего времени
+    if (currentHours < 16) {
+      readinessDate.setDate(readinessDate.getDate() + 1); // +1 день
+    } else {
+      readinessDate.setDate(readinessDate.getDate() + 2); // +2 дня
+    }
+    
+    // Устанавливаем время готовности на 10:00
+    readinessDate.setHours(10, 0, 0, 0);
+    
+    // Форматируем дату и время
+    const formatDate = (date: Date) => {
+      return date.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '.');
+    };
+    
+    return {
+      formattedDate: formatDate(readinessDate),
+      formattedTime: '10:00',
+      timestamp: readinessDate.getTime()
+    };
+  };
+
   const [state, setState] = useState<OrderState>({
     currentStep: 1,
     selectedColor: 'bg-primary',
@@ -44,6 +95,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     pocketForReview: false,
     pocketCD: false,
     plasticFile: false,
+    pdfFile: null,
+    coloredPages: [],
+    readinessDate: calculateReadinessDate() // Инициализируем дату сразу
   });
 
   // Получаем текущие выбранные элементы
@@ -68,10 +122,19 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setPocketForReview: (value) => setState(prev => ({ ...prev, pocketForReview: value })),
     setPocketCD: (value) => setState(prev => ({ ...prev, pocketCD: value })),
     setPlasticFile: (value) => setState(prev => ({ ...prev, plasticFile: value })),
-    
+
+    setPdfFile: (fileInfo) => setState(prev => ({ ...prev, pdfFile: fileInfo })),
 
     goToNextStep: () => setState(prev => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 3) })),
     goToPrevStep: () => setState(prev => ({ ...prev, currentStep: Math.max(prev.currentStep - 1, 1) })),
+
+    // Новая функция для обновления даты готовности
+    updateReadinessDate: () => {
+      setState(prev => ({
+        ...prev,
+        readinessDate: calculateReadinessDate()
+      }));
+    },
 
     getFinalCoverPath: () => {
       const colorPath = state.selectedColor === 'bg-red-dark' ? 'red' : 'blue';
@@ -104,10 +167,44 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         : `${basePath}/${colorPath}/withoutEmblems/${workType}.png`;
     },
 
-    getTotalPrice: () => {
+    toggleColoredPage: (pageNumber) => {
+      setState(prev => {
+        if (prev.pdfFile?.pages && pageNumber > prev.pdfFile.pages) {
+          return prev;
+        }
+    
+        if (prev.coloredPages.includes(pageNumber)) {
+          return {
+            ...prev,
+            coloredPages: prev.coloredPages.filter(p => p !== pageNumber)
+          };
+        } else {
+          return {
+            ...prev,
+            coloredPages: [...prev.coloredPages, pageNumber]
+          };
+        }
+      });
+    },
+
+    getCoverPrice: () => {
       const coverPrice = selectedCoverItem.price;
       const logoPrice = typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0;
       return coverPrice + logoPrice;
+    },
+
+    getTotalPrice: () => {
+      const coverPrice = selectedCoverItem.price;
+      const logoPrice = typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0;
+      
+      const totalPages = state.pdfFile?.pages || 0;
+      const coloredPagesCount = state.coloredPages.length;
+      const blackWhitePagesCount = totalPages - coloredPagesCount;
+      
+      const blackWhitePrice = blackWhitePagesCount * 10;
+      const coloredPagesPrice = coloredPagesCount * 30;
+    
+      return coverPrice + logoPrice + blackWhitePrice + coloredPagesPrice;
     },
 
     getEmbossingType: () => {
@@ -117,7 +214,12 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       if (selectedCoverItem.finalWork) return "ВКР";
       return "Без тиснения";
     }
-  }), [state.selectedColor, state.selectedPrintColor, state.selectedCover, state.selectedLogo, selectedCoverItem, selectedLogoItem]);
+  }), [state, selectedCoverItem, selectedLogoItem]);
+
+  // Обновляем дату готовности при монтировании
+  useEffect(() => {
+    actions.updateReadinessDate();
+  }, []);
 
   const value = useMemo<OrderContextValue>(() => ({
     ...state,
