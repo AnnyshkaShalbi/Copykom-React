@@ -13,7 +13,8 @@ export default function Readness() {
     plasticFile,
     pdfFile,
     getCoverPrice,
-    coloredPages
+    coloredPages,
+    plasticFileOptions
   } = useOrder();
 
   // Вычисляем количество черно-белых страниц
@@ -82,12 +83,30 @@ export default function Readness() {
             </div>
           }
 
-          { plasticFile && 
+          { plasticFileOptions.beforeTitle.enabled && 
             <div className="flex items-center justify-between relative before:content-[''] 
               before:absolute before:w-full before:-z-[1] before:bottom-1 before:top-0 before:left-0
               before:right-0 before:h-3/4 before:border-b before:border-solid before:border-grey-light">
-              <p className="bg-primary-light text-gray pr-1 leading-6">Файл </p>
-              <span className={`${inter.className} bg-primary-light pl-1 text-dark text-lg leading-9`}>15 ₽</span>
+              <p className="bg-primary-light text-gray pr-1 leading-6">Файл перед титулом {plasticFileOptions.beforeTitle.count} х 15 ₽</p>
+              <span className={`${inter.className} bg-primary-light pl-1 text-dark text-lg leading-9`}>{plasticFileOptions.beforeTitle.count * 15} ₽</span>
+            </div>
+          }
+
+          { plasticFileOptions.afterTitle.enabled && 
+            <div className="flex items-center justify-between relative before:content-[''] 
+              before:absolute before:w-full before:-z-[1] before:bottom-1 before:top-0 before:left-0
+              before:right-0 before:h-3/4 before:border-b before:border-solid before:border-grey-light">
+              <p className="bg-primary-light text-gray pr-1 leading-6">Файл после титула {plasticFileOptions.afterTitle.count} х 15 ₽</p>
+              <span className={`${inter.className} bg-primary-light pl-1 text-dark text-lg leading-9`}>{plasticFileOptions.afterTitle.count * 15} ₽</span>
+            </div>
+          }
+
+          { plasticFileOptions.atEnd.enabled && 
+            <div className="flex items-center justify-between relative before:content-[''] 
+              before:absolute before:w-full before:-z-[1] before:bottom-1 before:top-0 before:left-0
+              before:right-0 before:h-3/4 before:border-b before:border-solid before:border-grey-light">
+              <p className="bg-primary-light text-gray pr-1 leading-6">Файл в конце работы {plasticFileOptions.atEnd.count} х 15 ₽</p>
+              <span className={`${inter.className} bg-primary-light pl-1 text-dark text-lg leading-9`}>{plasticFileOptions.atEnd.count * 15} ₽</span>
             </div>
           }
         </div>

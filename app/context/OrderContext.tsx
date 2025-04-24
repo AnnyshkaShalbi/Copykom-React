@@ -15,6 +15,21 @@ type FileInfo = {
   pages: number | null;
 } | null;
 
+export type PlasticFileOptions = {
+  beforeTitle: {
+    enabled: boolean;
+    count: number;
+  };
+  afterTitle: {
+    enabled: boolean;
+    count: number;
+  };
+  atEnd: {
+    enabled: boolean;
+    count: number;
+  };
+};
+
 type OrderState = {
   currentStep: number;
   selectedColor: string;
@@ -24,6 +39,7 @@ type OrderState = {
   pocketForReview: boolean;
   pocketCD: boolean;
   plasticFile: boolean;
+  plasticFileOptions: PlasticFileOptions;
   pdfFile: FileInfo;
   coloredPages: number[];
   readinessDate: ReadinessDate;
@@ -38,6 +54,9 @@ type OrderActions = {
   setPocketForReview: (value: boolean) => void;
   setPocketCD: (value: boolean) => void;
   setPlasticFile: (value: boolean) => void;
+  togglePlasticFileOption: (option: keyof PlasticFileOptions) => void;
+  setPlasticFileCount: (option: keyof PlasticFileOptions, count: number) => void;
+
   goToNextStep: () => void;
   goToPrevStep: () => void;
   getFinalCoverPath: () => string;
@@ -46,7 +65,7 @@ type OrderActions = {
   getEmbossingType: () => string;
   setPdfFile: (fileInfo: FileInfo) => void;
   toggleColoredPage: (pageNumber: number) => void;
-  updateReadinessDate: () => void; // Добавлена новая функция
+  updateReadinessDate: () => void; 
 };
 
 type OrderContextValue = OrderState & OrderActions;
@@ -95,6 +114,20 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     pocketForReview: false,
     pocketCD: false,
     plasticFile: false,
+    plasticFileOptions: {
+      beforeTitle: {
+        enabled: false,
+        count: 2,
+      },
+      afterTitle: {
+        enabled: false,
+        count: 2,
+      },
+      atEnd: {
+        enabled: false,
+        count: 2,
+      }
+    },
     pdfFile: null,
     coloredPages: [],
     readinessDate: calculateReadinessDate() // Инициализируем дату сразу
@@ -122,6 +155,30 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setPocketForReview: (value) => setState(prev => ({ ...prev, pocketForReview: value })),
     setPocketCD: (value) => setState(prev => ({ ...prev, pocketCD: value })),
     setPlasticFile: (value) => setState(prev => ({ ...prev, plasticFile: value })),
+
+    togglePlasticFileOption: (option) => setState(prev => ({
+      ...prev,
+      plasticFileOptions: {
+        ...prev.plasticFileOptions,
+        [option]: {
+          ...prev.plasticFileOptions[option],
+          enabled: !prev.plasticFileOptions[option].enabled,
+          // При первом включении устанавливаем count в 2
+          count: !prev.plasticFileOptions[option].enabled ? 2 : 0
+        }
+      }
+    })),
+  
+    setPlasticFileCount: (option, count) => setState(prev => ({
+      ...prev,
+      plasticFileOptions: {
+        ...prev.plasticFileOptions,
+        [option]: {
+          ...prev.plasticFileOptions[option],
+          count: Math.max(0, count) // Не допускаем отрицательные значения
+        }
+      }
+    })),
 
     setPdfFile: (fileInfo) => setState(prev => ({ ...prev, pdfFile: fileInfo })),
 
@@ -203,8 +260,28 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       
       const blackWhitePrice = blackWhitePagesCount * 10;
       const coloredPagesPrice = coloredPagesCount * 30;
-    
-      return coverPrice + logoPrice + blackWhitePrice + coloredPagesPrice;
+      
+      const pocketCDPrice = state.pocketCD ? 70 : 0;
+      const pocketForReviewPrice = state.pocketForReview ? 70 : 0;
+      
+      // Рассчитываем стоимость пластиковых файлов
+      let plasticFilesPrice = 0;
+      if (state.plasticFile) {
+        plasticFilesPrice = Object.values(state.plasticFileOptions).reduce(
+          (total, option) => total + (option.enabled ? option.count * 15 : 0),
+          0
+        );
+      }
+      
+      return (
+        coverPrice + 
+        logoPrice + 
+        blackWhitePrice + 
+        coloredPagesPrice + 
+        pocketCDPrice + 
+        pocketForReviewPrice + 
+        plasticFilesPrice
+      );
     },
 
     getEmbossingType: () => {

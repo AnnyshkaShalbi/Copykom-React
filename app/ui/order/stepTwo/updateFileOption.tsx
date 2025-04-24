@@ -1,6 +1,6 @@
 import CheckboxCircle from "../../common/checkboxCircle"
 import CheckboxSquare from "../../common/checkboxSquare"
-import { useOrder } from '@/app/context/OrderContext';
+import { useOrder, PlasticFileOptions } from '@/app/context/OrderContext';
 
 export default function UpdateFileOption() {
   return(
@@ -42,14 +42,14 @@ const Print = ()  => {
       {(selectedPrintColor === "colored" && pdfFile?.pages) && 
         (<>
           <p>Выберите номер цветных страниц</p>
-          <ChoosePages pages={pdfFile?.pages} />
+          <ChooseColoredPages pages={pdfFile?.pages} />
         </>)}
       
     </div>
   )
 }
 
-const ChoosePages = ({ pages }: { pages: number | null }) => {
+const ChooseColoredPages = ({ pages }: { pages: number | null }) => {
   const { coloredPages, toggleColoredPage } = useOrder();
 
   if (!pages) return null;
@@ -68,7 +68,7 @@ const ChoosePages = ({ pages }: { pages: number | null }) => {
               className={`
                 border border-light w-[30px] h-[30px] px-3 py-0 text-sm font-normal 
                 flex items-center justify-center transition-all duration-300 
-                ease-in-out cursor-pointer
+                ease-in-out cursor-pointer hover:bg-primary hover:text-white
                 ${
                   isColored 
                     ? 'bg-primary text-white' 
@@ -140,6 +140,90 @@ const Additionally = () => {
         </div>
         <span className="text-sm text-primary pl-1 bg-white">15 ₽</span>
       </div>
+      { plasticFile && <AdditionallyPlasticFile /> }
     </div>
   )
 } 
+
+interface PlasticFileOption {
+  key: keyof PlasticFileOptions; 
+  label: string;
+}
+
+const AdditionallyPlasticFile = () => {
+  const {
+    plasticFileOptions,
+    togglePlasticFileOption,
+    setPlasticFileCount
+  } = useOrder();
+
+  const options: PlasticFileOption[] = [
+    { key: 'beforeTitle', label: 'Перед титулом' },
+    { key: 'afterTitle', label: 'После титула' },
+    { key: 'atEnd', label: 'В конце работы' },
+  ]
+
+  return(
+    <div className="ml-5">
+      {
+        options.map((option) => (
+          <div key={option.key}>
+            <div 
+              className="flex items-center justify-between cursor-pointer relative mt-3" 
+              onClick={() => { togglePlasticFileOption(option.key) }}
+            >
+              <div className="flex items-center">
+                <CheckboxSquare active={plasticFileOptions[option.key].enabled} />
+                <span className="text-sm text-dark pl-3 pr-1 bg-white">{option.label}</span>
+              </div>
+            </div>
+
+            {plasticFileOptions[option.key].enabled && (
+              <NumberOfPlasticFiles 
+                count={plasticFileOptions[option.key].count}
+                onChange={(newCount) => setPlasticFileCount(option.key, newCount)} />
+            )}
+          </div>
+        ))
+      }
+    </div>
+  )
+}
+
+const NumberOfPlasticFiles = ({ count, onChange }: { count: number, onChange: (count: number) => void }) => {
+  const quantity = 10
+
+  if (!count) return null;
+
+  return(
+    <>
+      <p className="text-sm text-dark mt-3">Выбери количество</p>
+      <div className="overflow-hidden overflow-x-scroll pb-2.5 overflow-scroll-touch">
+        <div className="flex items-center justify-start flex-nowrap whitespace-nowrap gap-2.5 mt-2.5 mb-1.25 min-w-[275px] w-[275px]">
+          {Array.from({ length: quantity }, (_, index) => {
+            const pageNumber = index + 1;
+            
+            return (
+              <div 
+                key={index} 
+                onClick={() => onChange(pageNumber)}
+                className={`
+                  border border-light w-[30px] h-[30px] px-3 py-0 text-sm font-normal 
+                  flex items-center justify-center transition-all duration-300 
+                  ease-in-out cursor-pointer hover:bg-primary hover:text-white
+                  ${
+                    pageNumber === count 
+                      ? 'bg-primary text-white' 
+                      : 'text-dark hover:bg-gray-100'
+                  }
+                `}
+              >
+                <span>{pageNumber}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+};
