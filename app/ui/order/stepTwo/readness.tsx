@@ -32,8 +32,8 @@ export default function Readness() {
     ">
       <h6 className="text-dark leading-6 mb-3">Готовность {readinessDate.formattedDate} после {readinessDate.formattedTime}</h6>
 
-      <div className="flex justify-between relative gap-4 z-[1]">
-        <div className="w-[400px] flex flex-col justify-start gap-3">
+      <div className="flex flex-col md:flex-row justify-between relative gap-4 z-[1]">
+        <div className="md:w-[400px] flex flex-col justify-start gap-3">
           <div 
             className="flex items-center justify-between relative before:content-[''] 
             before:absolute before:w-full before:-z-[1] before:bottom-1 before:top-0 before:left-0
@@ -117,7 +117,7 @@ export default function Readness() {
 
         <div className='flex flex-col items-end justify-end gap-6'>
           <span className={`${tenor_sans.className} text-dark text-[3.5rem] leading-[4.375rem]`}>
-            {getTotalPrice()} ₽
+            {getTotalPrice()}руб
           </span>
           <Button 
             disabled={pdfFile === null}
