@@ -2,15 +2,19 @@ import { useOrder } from '@/app/context/OrderContext';
 import { tenor_sans } from '../../fonts';
 import { Button } from '../../common/button';
 import { inter } from '../../fonts';
+import { useEffect } from 'react';
 
 export default function Readness() {
+  useEffect(() => {
+    console.log('pdfFile: ', pdfFile)
+  })
+
   const {
     readinessDate,
     getTotalPrice,
     goToNextStep,
     pocketForReview,
     pocketCD,
-    plasticFile,
     pdfFile,
     getCoverPrice,
     coloredPages,
@@ -115,7 +119,11 @@ export default function Readness() {
           <span className={`${tenor_sans.className} text-dark text-[3.5rem] leading-[4.375rem]`}>
             {getTotalPrice()} ₽
           </span>
-          <Button onClick={goToNextStep}>Продолжить</Button>
+          <Button 
+            disabled={pdfFile === null}
+            onClick={goToNextStep}>
+            Продолжить
+          </Button>
         </div>
       </div>
     </div>

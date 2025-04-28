@@ -13,7 +13,7 @@ export default function LogoForCover() {
   return(
     <div>
       <ItemTitle index={3} title="добавь фирменную эмблему вуза" />
-      <div className="flex flex-wrap gap-7 mt-6">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-7 mt-6">
         {logos.map((item) => (
           <div 
             key={item.id} 

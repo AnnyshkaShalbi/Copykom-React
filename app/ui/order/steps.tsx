@@ -29,10 +29,10 @@ export default function Steps({ active }: StepsProps) {
   } = useOrder();
 
   return(
-    <div className="flex gap-10 mb-10">
+    <div className="flex gap-3 sm:gap-10 mb-10">
       {steps.map((item) => {
         const circleClasses = [
-          `${tenor_sans.className} w-9 h-9 rounded-full flex justify-center items-center text-white text-2xl`,
+          `${tenor_sans.className} w-7 h-7 sm:w-9 sm:h-9 rounded-full flex justify-center items-center text-white text-base sm:text-2xl`,
           active === item.index 
             ? 'bg-primary' // активный шаг
             : active > item.index 
@@ -41,11 +41,11 @@ export default function Steps({ active }: StepsProps) {
         ].join(' ');
 
         return(
-          <div key={item.index} className="flex lg:min-w-72 items-start gap-4">
+          <div key={item.index} className="flex min-w-auto lg:min-w-72 items-start gap-4">
             <span className={circleClasses}>{item.index}</span>
             <div className={`${currentStep != item.index && 'hidden'} lg:block`}>
-              <span className={`${tenor_sans.className} text-2xl uppercase whitespace-nowrap`}>{item.title}</span>
-              <p className={`${inter.className} pt-2 text-sm text-gray max-w-60`}>{item.desc}</p>
+              <span className={`${tenor_sans.className} text-sm sm:text-2xl uppercase whitespace-nowrap`}>{item.title}</span>
+              <p className={`${inter.className} pt-2 text-xs sm:text-sm text-gray max-w-60`}>{item.desc}</p>
             </div>
           </div>
         )

@@ -30,17 +30,17 @@ export default function FinalCover() {
       <ItemTitle index={4} title="твой выбор" />
       <div className="mt-6 bg-light p-5 max-w-[615px]">
         <div className="grid grid-cols-[35%_65%] gap-4">
-          <div className="flex items-center justify-center p-4 relative h-44">
+          <div className="flex items-center justify-center p-4 relative h-28 sm:h-44">
             <Image 
               width={79}
               height={110}
               src={getFinalCoverPath()}
               alt="Итоговая обложка для диплома"
-              className="h-44 w-auto"
+              className="h-28 sm:h-44 w-auto"
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col sm:gap-2">
             <p className="text-gray">
               {selectedColor === 'bg-primary' ? 'Синяя' : 'Красная'} обложка
             </p>

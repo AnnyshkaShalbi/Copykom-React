@@ -16,7 +16,7 @@ export default function CoverForDiploma() {
   return(
     <div>
       <ItemTitle index={2} title="обложка" />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-7 mt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 sm:gap-7 mt-6">
         {currentImages.map((item) => (
           <div 
             key={item.id} 
@@ -25,7 +25,7 @@ export default function CoverForDiploma() {
             <div 
               className={`
                 h-56 bg-light flex items-center justify-center border-2 border-solid
-                transition-all duration-300 p-5 relative
+                transition-all duration-300 p-4 sm:p-5 relative
                 ${selectedCover === item.id 
                   ? 'border-primary' 
                   : 'border-transparent group-hover:border-primary'
