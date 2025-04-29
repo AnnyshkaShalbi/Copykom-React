@@ -87,7 +87,7 @@ const StepByStep = () => {
 
 const OrderDiplomaPrinting = () => {
   return(
-    <Link href={'/'} className="rounded-full bg-primary w-[128px] h-[128px] flex justify-center items-center mx-auto
+    <Link href={'/order'} className="rounded-full bg-primary w-[128px] h-[128px] flex justify-center items-center mx-auto
       md:w-48 md:h-48 md:absolute md:right-[10%] md:top-0
       lg:-top-full">
       <div className="">
