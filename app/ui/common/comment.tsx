@@ -45,7 +45,7 @@ const Comment = ({
         disabled={disabled}
         value={value}
         rows={rows}
-        className={`p-5 border outline-none resize-none min-h-40 ${
+        className={`p-3 border outline-none resize-none min-h-40 ${
           error ? "border-red-500" : "border-[#BEC7E2]"
         } ${
           error ? "focus:ring-red-500" : "focus:[#BEC7E2]"

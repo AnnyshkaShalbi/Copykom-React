@@ -29,7 +29,7 @@ export default function Steps({ active }: StepsProps) {
   } = useOrder();
 
   return(
-    <div className="flex gap-3 sm:gap-10 mb-10">
+    <div className="flex gap-3 sm:gap-10 mb-6 sm:mb-10">
       {steps.map((item) => {
         const circleClasses = [
           `${tenor_sans.className} w-7 h-7 sm:w-9 sm:h-9 rounded-full flex justify-center items-center text-white text-base sm:text-2xl`,

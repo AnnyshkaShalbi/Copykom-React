@@ -4,7 +4,7 @@ import Title from "../ui/common/title";
 
 export default function Page() {
   return (
-    <div className="wrapper">
+    <div className="wrapper px-5">
       <Title className="mt-5" title="Политика в отношении обработки персональных данных"/>
       <p className="leading-6 pb-2">1. Общие положения
       Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые Михайловым Иваном Сергеевичем (далее – Оператор).</p>
@@ -56,7 +56,7 @@ export default function Page() {
       <Title className="mt-5" title="8. Заключительные положения"/>
       <p className="leading-6 pb-2">8.1. Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты <a href="mailto:privacycopykom@mail.ru" className="leading-6 link">privacycopykom@mail.ru</a>.</p>
       <p className="leading-6 pb-2">8.2. В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.</p>
-      <p className="leading-6 pb-2">8.3. Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу <Link href="/privacy" className="leading-6 link">https://copykom.ru</Link>.</p>
+      <p className="leading-6 pb-2">8.3. Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу <Link href="/privacy" className="leading-6 link">https://copykom.ru/privacy</Link>.</p>
     </div>
   );
 }

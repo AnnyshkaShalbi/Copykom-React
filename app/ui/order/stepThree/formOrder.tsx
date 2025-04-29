@@ -19,7 +19,11 @@ export default function FormOrder() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
+  const isFormValid = values.phone.trim() !== '' && values.name.trim() !== '';
+
   const onSubmit = async (formData: typeof values) => {
+    if (!isFormValid) return;
+
     setIsSubmitting(true);
     setSubmitError(null);
     setSubmitSuccess(false);
@@ -61,7 +65,7 @@ export default function FormOrder() {
       }}
       className="flex flex-col flex-wrap gap-4"
     >
-      <div className="grid grid-cols-2 gap-7 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 items-center">
         <Input
           type="tel"
           label="Номер телефона"
@@ -111,8 +115,10 @@ export default function FormOrder() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-7 items-center">
-        <Button type="submit" disabled={isSubmitting}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 items-center">
+        <Button 
+          type="submit" 
+          disabled={!isFormValid || isSubmitting}>
           {isSubmitting ? 'Отправка...' : 'Оформить заказ'}
         </Button>
         <p className="text-xs">
