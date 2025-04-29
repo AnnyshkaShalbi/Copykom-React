@@ -68,7 +68,7 @@ type OrderActions = {
   updateReadinessDate: () => void; 
 };
 
-type OrderContextValue = OrderState & OrderActions;
+type OrderContextValue = OrderState & OrderActions ;
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
 

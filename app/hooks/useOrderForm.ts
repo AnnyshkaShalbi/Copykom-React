@@ -60,6 +60,6 @@ export const useOrderForm = () => {
     handleChange, 
     handleSubmit,
     setValues,
-    resetForm: () => setValues({ phone: '', name: '', email: '', comment: '' }) // Добавьте этот метод
+    resetForm: () => setValues({ phone: '', name: '', email: '', comment: '' }) 
   };
 };

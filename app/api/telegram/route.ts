@@ -2,20 +2,14 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  // Логирование входящего запроса
-  console.log('--- NEW REQUEST ---');
-  console.log('Request Headers:', Object.fromEntries(request.headers));
 
   try {
     // Парсинг тела запроса
     const requestBody = await request.json();
-    console.log('Request Body:', requestBody);
-    
-    const { name, phone, email, comment } = requestBody;
+    const { name, phone, email, comment, color, titleCover, titleLogo } = requestBody;
 
     // Проверка обязательных полей
     if (!name || !phone) {
-      console.error('Validation Error: Missing required fields');
       return NextResponse.json(
         { success: false, error: 'Имя и телефон обязательны' },
         { status: 400 }
@@ -25,10 +19,8 @@ export async function POST(request: Request) {
     // Получение переменных окружения
     const TG_TOKEN = process.env.TG_TOKEN;
     const TG_CHAT_ID = process.env.TG_CHAT_ID;
-    console.log('Env Variables:', { TG_TOKEN, TG_CHAT_ID });
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
-      console.error('Environment variables missing');
       return NextResponse.json(
         { success: false, error: 'Server configuration error' },
         { status: 500 }
@@ -36,8 +28,19 @@ export async function POST(request: Request) {
     }
 
     // Формирование сообщения
-    const text = `📌 Новый заказ:\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📧 Email: ${email || 'не указан'}\n💬 Комментарий: ${comment || 'нет'}`;
-    console.log('Formatted message:', text);
+    const text = `
+    📣🎓 Новый заказ 🎓📣
+    
+    👤 Имя: ${name}
+    📞 Телефон: ${phone}
+    📬 Email: ${email || 'не указан'}
+    📧 Комментарий: ${comment || 'нет'}
+
+    ${color === 'bg-primary' ? '📘 Синяя обложка 📘' : '📕 Красная обложка 📕'}
+    Заголовок обложки: ${titleCover}
+    Заголовок логотипа: ${titleLogo}
+    
+    `;
 
     // Отправка в Telegram
     const telegramUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;

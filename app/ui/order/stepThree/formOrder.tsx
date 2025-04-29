@@ -6,6 +6,9 @@ import Comment from "@/app/ui/common/comment";
 import { useOrderForm } from "@/app/hooks/useOrderForm";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useOrder } from '@/app/context/OrderContext';
+import { logos } from "@/app/lib/placeholder-data";
+import { useMemo } from "react";
 
 export default function FormOrder() {
   const router = useRouter();
@@ -16,6 +19,20 @@ export default function FormOrder() {
     handleSubmit,
     setValues
   } = useOrderForm();
+
+  const {
+    selectedColor,
+    getEmbossingType,
+    selectedLogo,
+  } = useOrder();
+
+  const selectedLogoItem = useMemo(() => {
+    return logos.find(item => item.id === selectedLogo) || logos[0];
+  }, [selectedLogo]);
+
+  const embossingType = getEmbossingType();
+  const showEmbossingText = embossingType !== "Без тиснения";
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -36,7 +53,10 @@ export default function FormOrder() {
           name: formData.name,
           phone: formData.phone,
           email: formData.email,
-          comment: formData.comment
+          comment: formData.comment,
+          color: selectedColor,
+          titleCover: showEmbossingText ? `С тиснением ${embossingType}` : 'Без тиснения',
+          titleLogo: selectedLogoItem.id === 0 ? "Без эмблемы" : selectedLogoItem.title,
         }),
       });
   
