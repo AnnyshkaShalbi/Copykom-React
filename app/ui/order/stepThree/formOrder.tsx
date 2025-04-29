@@ -5,8 +5,10 @@ import Link from "next/link";
 import Comment from "@/app/ui/common/comment";
 import { useOrderForm } from "@/app/hooks/useOrderForm";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function FormOrder() {
+  const router = useRouter();
   const {
     values,
     errors,
@@ -14,11 +16,9 @@ export default function FormOrder() {
     handleSubmit,
     setValues
   } = useOrderForm();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
   const isFormValid = values.phone.trim() !== '' && values.name.trim() !== '';
 
   const onSubmit = async (formData: typeof values) => {
@@ -48,6 +48,10 @@ export default function FormOrder() {
   
       setSubmitSuccess(true);
       setValues({ phone: '', name: '', email: '', comment: '' });
+
+      setTimeout(() => {
+        router.push('/thanks');
+      }, 1000);
       
     } catch (error: any) {
       setSubmitError(error.message || 'Произошла ошибка. Попробуйте позже.');
