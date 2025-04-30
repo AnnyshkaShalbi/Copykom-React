@@ -28,7 +28,7 @@ export default function FormOrder() {
 
   const onSubmit = async (formData: typeof values) => {
     if (!isFormValid) return;
-
+  
     setIsSubmitting(true);
     setSubmitError(null);
     setSubmitSuccess(false);
@@ -44,23 +44,47 @@ export default function FormOrder() {
           comment: formData.comment
         }
       };
-      console.log('fullData', fullData)
-
-      const response = await fetch('/api/telegram', {
+  
+      // 1. Сначала отправляем текстовые данные
+      const textResponse = await fetch('/api/telegram-text-diplom', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fullData),
       });
   
-      const result = await response.json();
+      const textResult = await textResponse.json();
       
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || 'Ошибка при отправке заказа');
+      if (!textResponse.ok || !textResult.success) {
+        throw new Error(textResult.error || 'Ошибка при отправке заказа');
+      }
+  
+      // 2. Если текстовые данные отправлены успешно, отправляем файл
+      if (orderSummary.orderDetails.pdfFile?.file) {
+        try {
+          const fileFormData = new FormData();
+          fileFormData.append('pdfFile', orderSummary.orderDetails.pdfFile.file);
+          fileFormData.append('orderId', textResult.orderId || Date.now().toString());
+  
+          const fileResponse = await fetch('/api/telegram-file', {
+            method: 'POST',
+            body: fileFormData,
+          });
+  
+          const fileResult = await fileResponse.json();
+          
+          if (!fileResponse.ok || !fileResult.success) {
+            console.warn('Файл не отправлен:', fileResult.error);
+            setSubmitError('Заказ оформлен, но файл не был отправлен. Пожалуйста, свяжитесь с нами.');
+          }
+        } catch (fileError) {
+          console.error('File upload error:', fileError);
+          setSubmitError('Заказ оформлен, но файл не был отправлен. Пожалуйста, свяжитесь с нами.');
+        }
       }
   
       setSubmitSuccess(true);
       setValues({ phone: '', name: '', email: '', comment: '' });
-
+  
       setTimeout(() => {
         router.push('/thanks');
       }, 1000);

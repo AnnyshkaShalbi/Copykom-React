@@ -4,8 +4,6 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const requestBody = await request.json();
-
-    console.log('requestBody', requestBody)
     const { 
       client,
       color,
@@ -54,7 +52,7 @@ export async function POST(request: Request) {
     // Формирование сообщения
     const text = `
 📣🎓 Новый заказ 🎓📣
-
+ID заказа: ${Date.now().toString()}
 👤 Имя: ${client.name} 👤
 📞 Телефон: ${client.phone} 📞
 📬 Email: ${client.email || 'не указан'} 📬
@@ -110,7 +108,7 @@ ${options.plasticFileOptions.atEnd.enabled
       body: JSON.stringify({
         chat_id: TG_CHAT_ID,
         text: text,
-        parse_mode: "Markdown"
+        parse_mode: "HTML"
       }),
     };
 
@@ -124,7 +122,8 @@ ${options.plasticFileOptions.atEnd.enabled
 
     return NextResponse.json({ 
       success: true,
-      message: 'Заказ успешно отправлен в Telegram'
+      message: 'Заказ успешно отправлен в Telegram',
+      orderId: Date.now().toString(),
     });
 
   } catch (error: any) {

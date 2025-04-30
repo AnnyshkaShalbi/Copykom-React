@@ -22,13 +22,14 @@ export default function UpdateFileForm() {
         alert('Пожалуйста, выберите файл в формате PDF');
         return;
       }
-
+  
       const pageCount = await getPageCount(file);
       
       setPdfFile({
         name: file.name,
         size: formatFileSize(file.size),
-        pages: pageCount
+        pages: pageCount,
+        file: file 
       });
     }
   };

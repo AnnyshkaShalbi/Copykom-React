@@ -8,6 +8,7 @@ export type FileInfo = {
   name: string;
   size: string;
   pages: number | null;
+  file: File;
 } | null;
 
 export type PlasticFileOptions = {

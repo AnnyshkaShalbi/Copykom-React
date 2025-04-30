@@ -108,7 +108,13 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       }
     })),
 
-    setPdfFile: (fileInfo) => setState(prev => ({ ...prev, pdfFile: fileInfo })),
+    setPdfFile: (fileInfo) => {
+      if (fileInfo && !fileInfo.file) {
+        console.error('File object is missing in fileInfo');
+        return;
+      }
+      setState(prev => ({ ...prev, pdfFile: fileInfo }));
+    },
 
     goToNextStep: () => setState(prev => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 3) })),
     goToPrevStep: () => setState(prev => ({ ...prev, currentStep: Math.max(prev.currentStep - 1, 1) })),
