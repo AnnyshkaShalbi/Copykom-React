@@ -2,109 +2,13 @@
 
 import { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 import { blueColors, redColors, logos } from "@/app/lib/placeholder-data";
-
-type ReadinessDate = {
-  formattedDate: string;
-  formattedTime: string;
-  timestamp: number;
-};
-
-type FileInfo = {
-  name: string;
-  size: string;
-  pages: number | null;
-} | null;
-
-export type PlasticFileOptions = {
-  beforeTitle: {
-    enabled: boolean;
-    count: number;
-  };
-  afterTitle: {
-    enabled: boolean;
-    count: number;
-  };
-  atEnd: {
-    enabled: boolean;
-    count: number;
-  };
-};
-
-type OrderState = {
-  currentStep: number;
-  selectedColor: string;
-  selectedCover: number;
-  selectedLogo: number;
-  selectedPrintColor: string;
-  pocketForReview: boolean;
-  pocketCD: boolean;
-  plasticFile: boolean;
-  plasticFileOptions: PlasticFileOptions;
-  pdfFile: FileInfo;
-  coloredPages: number[];
-  readinessDate: ReadinessDate;
-};
-
-type OrderActions = {
-  setCurrentStep: (step: number) => void;
-  setSelectedColor: (color: string) => void;
-  setSelectedCover: (cover: number) => void;
-  setSelectedLogo: (logo: number) => void;
-  setSelectedPrintColor: (print: string) => void;
-  setPocketForReview: (value: boolean) => void;
-  setPocketCD: (value: boolean) => void;
-  setPlasticFile: (value: boolean) => void;
-  togglePlasticFileOption: (option: keyof PlasticFileOptions) => void;
-  setPlasticFileCount: (option: keyof PlasticFileOptions, count: number) => void;
-
-  goToNextStep: () => void;
-  goToPrevStep: () => void;
-  getFinalCoverPath: () => string;
-  getCoverPrice: () => number;
-  getTotalPrice: () => number;
-  getEmbossingType: () => string;
-  setPdfFile: (fileInfo: FileInfo) => void;
-  toggleColoredPage: (pageNumber: number) => void;
-  updateReadinessDate: () => void; 
-};
-
-type OrderContextValue = OrderState & OrderActions ;
+import { OrderContextValue, OrderState, OrderActions  } from "@/app/lib/types/order"
+import { calculateReadinessDate } from "@/app/lib/utils/order"
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
 
 export function OrderProvider({ children }: { children: ReactNode }) {
-  // Функция для вычисления даты готовности
-  const calculateReadinessDate = (): ReadinessDate => {
-    const now = new Date();
-    const currentHours = now.getHours();
-    const readinessDate = new Date(now);
-    
-    // Добавляем дни в зависимости от текущего времени
-    if (currentHours < 16) {
-      readinessDate.setDate(readinessDate.getDate() + 1); // +1 день
-    } else {
-      readinessDate.setDate(readinessDate.getDate() + 2); // +2 дня
-    }
-    
-    // Устанавливаем время готовности на 10:00
-    readinessDate.setHours(10, 0, 0, 0);
-    
-    // Форматируем дату и время
-    const formatDate = (date: Date) => {
-      return date.toLocaleDateString('ru-RU', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      }).replace(/\//g, '.');
-    };
-    
-    return {
-      formattedDate: formatDate(readinessDate),
-      formattedTime: '10:00',
-      timestamp: readinessDate.getTime()
-    };
-  };
-
+  
   const [state, setState] = useState<OrderState>({
     currentStep: 1,
     selectedColor: 'bg-primary',
@@ -130,7 +34,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     },
     pdfFile: null,
     coloredPages: [],
-    readinessDate: calculateReadinessDate() // Инициализируем дату сразу
+    readinessDate: calculateReadinessDate() 
   });
 
   // Получаем текущие выбранные элементы

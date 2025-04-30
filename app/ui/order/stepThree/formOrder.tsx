@@ -24,6 +24,7 @@ export default function FormOrder() {
     selectedColor,
     getEmbossingType,
     selectedLogo,
+    pdfFile,
   } = useOrder();
 
   const selectedLogoItem = useMemo(() => {
@@ -36,6 +37,7 @@ export default function FormOrder() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
   const isFormValid = values.phone.trim() !== '' && values.name.trim() !== '';
 
   const onSubmit = async (formData: typeof values) => {

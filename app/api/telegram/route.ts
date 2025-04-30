@@ -4,9 +4,15 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
 
   try {
-    // Парсинг тела запроса
-    const requestBody = await request.json();
-    const { name, phone, email, comment, color, titleCover, titleLogo } = requestBody;
+    const requestBody = await request.json(); // Парсинг тела запроса
+    const { 
+      name, 
+      phone, 
+      email, 
+      comment, 
+      color, 
+      titleCover, 
+      titleLogo } = requestBody;
 
     // Проверка обязательных полей
     if (!name || !phone) {
@@ -44,7 +50,6 @@ export async function POST(request: Request) {
 
     // Отправка в Telegram
     const telegramUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
-    console.log('Telegram API URL:', telegramUrl);
 
     const requestOptions = {
       method: "POST",
@@ -55,7 +60,6 @@ export async function POST(request: Request) {
         parse_mode: "HTML"
       }),
     };
-    console.log('Telegram Request Options:', requestOptions);
 
     const response = await fetch(telegramUrl, requestOptions);
     const data = await response.json();
