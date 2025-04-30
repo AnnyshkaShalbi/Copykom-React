@@ -57,10 +57,71 @@ export type OrderActions = {
   getFinalCoverPath: () => string;
   getCoverPrice: () => number;
   getTotalPrice: () => number;
-  getEmbossingType: () => string;
   setPdfFile: (fileInfo: FileInfo) => void;
   toggleColoredPage: (pageNumber: number) => void;
   updateReadinessDate: () => void; 
+  getOrderSummary: () => void
 };
 
-export type OrderContextValue = OrderState & OrderActions;
+export type OrderContextValue = OrderState & OrderActions & {
+   /**
+   * Информация о тиснении embossingType
+   * @property {string} text - Готовый текст для отображения ("С тиснением МД")
+   * @property {string} type - Тип тиснения ("МД")
+   */
+  computed: {
+    embossingType: {
+      text: string;
+      type: string;
+    };
+    logoText: string;
+    colorText: string;
+    selectedCoverItem: CoverItem;
+    selectedLogoItem: LogoItem;
+  };
+};
+
+export type CoverItem = {
+  id: number,
+  price: number,
+  title: string,
+  image: string,
+  diplomWork: boolean,
+  diplomProject: boolean,
+  finalWork: boolean,
+  masterThesis: boolean,
+}
+
+export type LogoItem = {
+  id: number,
+  price: boolean,
+  title: string,
+  image: string,
+}
+
+export type OrderSummary = {
+  orderDetails: {
+    color: string;
+    embossing: {
+      text: string;
+      type: string;
+    };
+    logo: string;
+    price: number;
+    pdfFile: FileInfo | null;
+    coloredPages: number[];
+    options: {
+      pocketForReview: boolean;
+      pocketCD: boolean;
+      plasticFile: boolean;
+      plasticFileOptions: PlasticFileOptions;
+    };
+    readinessDate: ReadinessDate;
+  };
+  formData?: {
+    name: string;
+    phone: string;
+    email: string;
+    comment: string;
+  };
+};

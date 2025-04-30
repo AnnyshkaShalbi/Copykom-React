@@ -10,20 +10,15 @@ import { logos } from "@/app/lib/placeholder-data";
 
 export default function FinalCover() {
   const {
-    selectedColor,
+    computed: {
+      embossingType,
+      logoText,
+      colorText
+    },
     getFinalCoverPath,
     getTotalPrice,
-    getEmbossingType,
-    selectedLogo,
     goToNextStep
   } = useOrder();
-
-  const selectedLogoItem = useMemo(() => {
-    return logos.find(item => item.id === selectedLogo) || logos[0];
-  }, [selectedLogo]);
-
-  const embossingType = getEmbossingType();
-  const showEmbossingText = embossingType !== "Без тиснения";
 
   return(
     <div>
@@ -41,15 +36,9 @@ export default function FinalCover() {
           </div>
 
           <div className="flex flex-col sm:gap-2">
-            <p className="text-gray">
-              {selectedColor === 'bg-primary' ? 'Синяя' : 'Красная'} обложка
-            </p>
-            {showEmbossingText ? (
-              <p className="text-gray">С тиснением {embossingType}</p>
-            ) : <p className="text-gray">Без тиснения</p>}
-            <p className="text-gray">
-              {selectedLogoItem.id === 0 ? "Без эмблемы" : selectedLogoItem.title}
-            </p>
+            <p className="text-gray">{colorText} обложка</p>
+            <p className="text-gray">{embossingType.text}</p>
+            <p className="text-gray">{logoText}</p>
             <p className={`${inter.className} text-primary text-lg`}>
               {getTotalPrice()} ₽
             </p>

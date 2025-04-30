@@ -7,8 +7,6 @@ import { useOrderForm } from "@/app/hooks/useOrderForm";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useOrder } from '@/app/context/OrderContext';
-import { logos } from "@/app/lib/placeholder-data";
-import { useMemo } from "react";
 
 export default function FormOrder() {
   const router = useRouter();
@@ -20,19 +18,7 @@ export default function FormOrder() {
     setValues
   } = useOrderForm();
 
-  const {
-    selectedColor,
-    getEmbossingType,
-    selectedLogo,
-    pdfFile,
-  } = useOrder();
-
-  const selectedLogoItem = useMemo(() => {
-    return logos.find(item => item.id === selectedLogo) || logos[0];
-  }, [selectedLogo]);
-
-  const embossingType = getEmbossingType();
-  const showEmbossingText = embossingType !== "Без тиснения";
+  const { getOrderSummary } = useOrder();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -48,18 +34,22 @@ export default function FormOrder() {
     setSubmitSuccess(false);
     
     try {
-      const response = await fetch('/api/telegram', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const orderSummary = getOrderSummary();
+      const fullData = {
+        ...orderSummary.orderDetails,
+        client: {
           name: formData.name,
           phone: formData.phone,
           email: formData.email,
-          comment: formData.comment,
-          color: selectedColor,
-          titleCover: showEmbossingText ? `С тиснением ${embossingType}` : 'Без тиснения',
-          titleLogo: selectedLogoItem.id === 0 ? "Без эмблемы" : selectedLogoItem.title,
-        }),
+          comment: formData.comment
+        }
+      };
+      console.log('fullData', fullData)
+
+      const response = await fetch('/api/telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fullData),
       });
   
       const result = await response.json();

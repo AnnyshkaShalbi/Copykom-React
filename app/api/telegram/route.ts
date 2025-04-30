@@ -2,20 +2,24 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-
   try {
-    const requestBody = await request.json(); // Парсинг тела запроса
+    const requestBody = await request.json();
+
+    console.log('requestBody', requestBody)
     const { 
-      name, 
-      phone, 
-      email, 
-      comment, 
-      color, 
-      titleCover, 
-      titleLogo } = requestBody;
+      client,
+      color,
+      embossing,
+      logo,
+      price,
+      pdfFile,
+      coloredPages,
+      options,
+      readinessDate
+    } = requestBody;
 
     // Проверка обязательных полей
-    if (!name || !phone) {
+    if (!client?.name || !client?.phone) {
       return NextResponse.json(
         { success: false, error: 'Имя и телефон обязательны' },
         { status: 400 }
@@ -33,59 +37,102 @@ export async function POST(request: Request) {
       );
     }
 
+    // Форматирование данных
+    const totalPages = pdfFile?.pages || 0;
+    const bwPages = totalPages - (coloredPages?.length || 0);
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).replace(/\//g, '.');
+    const formattedTime = currentDate.toLocaleTimeString('ru-RU', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
     // Формирование сообщения
     const text = `
-    📣🎓 Новый заказ 🎓📣
-    
-    👤 Имя: ${name}
-    📞 Телефон: ${phone}
-    📬 Email: ${email || 'не указан'}
-    📧 Комментарий: ${comment || 'нет'}
+📣🎓 Новый заказ 🎓📣
 
-    ${color === 'bg-primary' ? '📘 Синяя обложка 📘' : '📕 Красная обложка 📕'}
-    Заголовок обложки: ${titleCover}
-    Заголовок логотипа: ${titleLogo}
-    
+👤 Имя: ${client.name} 👤
+📞 Телефон: ${client.phone} 📞
+📬 Email: ${client.email || 'не указан'} 📬
+📧 Комментарий: ${client.comment || 'нет'}
+
+${color === 'Синяя' ? '📘 Синяя обложка 📘' : '📕 Красная обложка 📕'}
+Заголовок обложки: ${embossing.text}
+Заголовок логотипа: ${logo}
+
+📃 Всего страниц: ${totalPages} 📃
+📃 Количество страниц ч/б: ${bwPages} 📃
+📃 Количество цветных страниц: ${coloredPages.length} 📃
+
+${coloredPages.length > 0 
+  ? `🌈 Цветные страницы: ${coloredPages.join(', ')} 🌈` 
+  : '🌈 Цветные страницы не указаны! 🌈'}
+
+${options.pocketForReview 
+  ? '✅ Вклеить карман для рецензии ✅' 
+  : '❌ Без кармана для рецензии ❌'}
+
+${options.pocketCD 
+  ? '✅ Вклеить карман для CD диска ✅' 
+  : '❌ Без кармана для CD ❌'}
+
+${options.plasticFile ? `
+💿 Пластиковые файлы:
+${options.plasticFileOptions.beforeTitle.enabled 
+  ? `- Перед титулом: ${options.plasticFileOptions.beforeTitle.count}` 
+  : ''}
+${options.plasticFileOptions.afterTitle.enabled 
+  ? `- После титула: ${options.plasticFileOptions.afterTitle.count}` 
+  : ''}
+${options.plasticFileOptions.atEnd.enabled 
+  ? `- В конце: ${options.plasticFileOptions.atEnd.count}` 
+  : ''}
+` : '❌ Без пластиковых файлов ❌'}
+
+🗓 Дата заполнения заявки: ${formattedDate} в ${formattedTime} 🗓
+
+              ⌛️ ⌛️ ⌛️
+
+🗓 Дата готовности: ${readinessDate.formattedDate} с ${readinessDate.formattedTime} 🗓
+
+💰🧮 ЦЕНА: ${price} ₽ 🧮💰
     `;
 
     // Отправка в Telegram
     const telegramUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: TG_CHAT_ID,
         text: text,
-        parse_mode: "HTML"
+        parse_mode: "Markdown"
       }),
     };
 
     const response = await fetch(telegramUrl, requestOptions);
     const data = await response.json();
-    console.log('Telegram API Response:', data);
 
     if (!response.ok) {
       console.error('Telegram API Error:', data);
       throw new Error(data.description || 'Ошибка при отправке в Telegram');
     }
 
-    console.log('--- SUCCESS ---');
     return NextResponse.json({ 
-      success: true, 
-      data: {
-        telegramResponse: data,
-        yourData: requestBody
-      }
+      success: true,
+      message: 'Заказ успешно отправлен в Telegram'
     });
 
   } catch (error: any) {
-    console.error('!!! ERROR !!!', error);
+    console.error('Error:', error);
     return NextResponse.json(
       { 
         success: false, 
-        error: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        error: error.message || 'Internal server error'
       },
       { status: 500 }
     );

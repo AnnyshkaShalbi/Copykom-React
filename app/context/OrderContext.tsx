@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 import { blueColors, redColors, logos } from "@/app/lib/placeholder-data";
 import { OrderContextValue, OrderState, OrderActions  } from "@/app/lib/types/order"
-import { calculateReadinessDate } from "@/app/lib/utils/order"
+import { calculateReadinessDate, getFinalCoverPath, getCoverPrice, calculateTotalPrice } from "@/app/lib/utils/order"
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
 
@@ -37,7 +37,6 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     readinessDate: calculateReadinessDate() 
   });
 
-  // Получаем текущие выбранные элементы
   const selectedCoverItem = useMemo(() => {
     const currentColors = state.selectedColor === 'bg-primary' ? redColors : blueColors;
     return currentColors.find(item => item.id === state.selectedCover) || currentColors[0];
@@ -46,6 +45,31 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   const selectedLogoItem = useMemo(() => {
     return logos.find(item => item.id === state.selectedLogo) || logos[0];
   }, [state.selectedLogo]);
+
+  const logoPrice = useMemo(() => 
+    typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0,
+    [selectedLogoItem]
+  );
+  
+  const coverPrice = useMemo(() => selectedCoverItem.price, [selectedCoverItem]);
+
+  const embossingType = useMemo(() => {
+    if (selectedCoverItem.masterThesis) return { text: "С тиснением МД", type: "МД" };
+    if (selectedCoverItem.diplomWork) return { text: "С тиснением ДР", type: "ДР" };
+    if (selectedCoverItem.diplomProject) return { text: "С тиснением ДП", type: "ДП" };
+    if (selectedCoverItem.finalWork) return { text: "С тиснением ВКР", type: "ВКР" };
+    return { text: "Без тиснения", type: "Без тиснения" };
+  }, [selectedCoverItem]);
+  
+  const logoText = useMemo(() => {
+    return selectedLogoItem.id === 0 
+      ? "Без эмблемы" 
+      : selectedLogoItem.title;
+  }, [selectedLogoItem]);
+  
+  const colorText = useMemo(() => {
+    return state.selectedColor === 'bg-primary' ? 'Синяя' : 'Красная';
+  }, [state.selectedColor]);
 
   const actions = useMemo<OrderActions>(() => ({
     // Основные методы
@@ -97,36 +121,11 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       }));
     },
 
-    getFinalCoverPath: () => {
-      const colorPath = state.selectedColor === 'bg-red-dark' ? 'red' : 'blue';
-      const basePath = '/covers';
-
-      let workType = '';
-      if (selectedCoverItem.masterThesis) workType = 'masterThesis';
-      else if (selectedCoverItem.diplomWork) workType = 'diplomWork';
-      else if (selectedCoverItem.diplomProject) workType = 'diplomProject';
-      else if (selectedCoverItem.finalWork) workType = 'finalWork';
-      else return `${basePath}/${colorPath}/withoutEmblems/empty.png`;
-
-      const logoTitle = selectedLogoItem.title === "Без эмблемы" ? undefined : selectedLogoItem.title;
-      
-      if (!logoTitle || logoTitle === "Без эмблемы") {
-        return `${basePath}/${colorPath}/withoutEmblems/${workType}.png`;
-      }
-
-      const logoPathMap: Record<string, string> = {
-        "МАДИ": "madi",
-        "МАИ": "mai",
-        "Финашка": "fin",
-        "Бауманка": "mgtu",
-        "МЭИ": "mei"
-      };
-
-      const logoPath = logoPathMap[logoTitle];
-      return logoPath 
-        ? `${basePath}/${colorPath}/${logoPath}/${workType}.png`
-        : `${basePath}/${colorPath}/withoutEmblems/${workType}.png`;
-    },
+    getFinalCoverPath: () => getFinalCoverPath(
+      state.selectedColor,
+      selectedCoverItem,
+      selectedLogoItem
+    ),
 
     toggleColoredPage: (pageNumber) => {
       setState(prev => {
@@ -148,53 +147,54 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       });
     },
 
-    getCoverPrice: () => {
-      const coverPrice = selectedCoverItem.price;
-      const logoPrice = typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0;
-      return coverPrice + logoPrice;
-    },
+    getCoverPrice: () => getCoverPrice(selectedCoverItem, selectedLogoItem),
 
-    getTotalPrice: () => {
-      const coverPrice = selectedCoverItem.price;
-      const logoPrice = typeof selectedLogoItem.price === 'number' ? selectedLogoItem.price : 0;
-      
-      const totalPages = state.pdfFile?.pages || 0;
-      const coloredPagesCount = state.coloredPages.length;
-      const blackWhitePagesCount = totalPages - coloredPagesCount;
-      
-      const blackWhitePrice = blackWhitePagesCount * 10;
-      const coloredPagesPrice = coloredPagesCount * 30;
-      
-      const pocketCDPrice = state.pocketCD ? 70 : 0;
-      const pocketForReviewPrice = state.pocketForReview ? 70 : 0;
-      
-      // Рассчитываем стоимость пластиковых файлов
-      let plasticFilesPrice = 0;
-      if (state.plasticFile) {
-        plasticFilesPrice = Object.values(state.plasticFileOptions).reduce(
-          (total, option) => total + (option.enabled ? option.count * 15 : 0),
-          0
-        );
-      }
-      
-      return (
-        coverPrice + 
-        logoPrice + 
-        blackWhitePrice + 
-        coloredPagesPrice + 
-        pocketCDPrice + 
-        pocketForReviewPrice + 
-        plasticFilesPrice
+    getTotalPrice: () => calculateTotalPrice(
+      {
+        pdfFile: state.pdfFile,
+        coloredPages: state.coloredPages,
+        pocketCD: state.pocketCD,
+        pocketForReview: state.pocketForReview,
+        plasticFile: state.plasticFile,
+        plasticFileOptions: state.plasticFileOptions
+      },
+      coverPrice,
+      logoPrice
+    ),
+
+    getOrderSummary: () => {
+      const price = calculateTotalPrice(
+        {
+          pdfFile: state.pdfFile,
+          coloredPages: state.coloredPages,
+          pocketCD: state.pocketCD,
+          pocketForReview: state.pocketForReview,
+          plasticFile: state.plasticFile,
+          plasticFileOptions: state.plasticFileOptions
+        },
+        coverPrice,
+        logoPrice
       );
+    
+      return {
+        orderDetails: {
+          color: colorText,
+          embossing: embossingType,
+          logo: logoText,
+          price,
+          pdfFile: state.pdfFile, 
+          coloredPages: state.coloredPages,
+          options: {
+            pocketForReview: state.pocketForReview,
+            pocketCD: state.pocketCD,
+            plasticFile: state.plasticFile,
+            plasticFileOptions: state.plasticFileOptions
+          },
+          readinessDate: state.readinessDate
+        }
+      };
     },
 
-    getEmbossingType: () => {
-      if (selectedCoverItem.masterThesis) return "МД";
-      if (selectedCoverItem.diplomWork) return "ДР";
-      if (selectedCoverItem.diplomProject) return "ДП";
-      if (selectedCoverItem.finalWork) return "ВКР";
-      return "Без тиснения";
-    }
   }), [state, selectedCoverItem, selectedLogoItem]);
 
   // Обновляем дату готовности при монтировании
@@ -205,7 +205,14 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   const value = useMemo<OrderContextValue>(() => ({
     ...state,
     ...actions,
-  }), [state, actions]);
+    computed: {
+      embossingType,
+      logoText,
+      colorText,
+      selectedCoverItem,
+      selectedLogoItem,
+    }
+  }), [state, actions, embossingType, logoText, colorText, selectedCoverItem, selectedLogoItem]);
 
   return (
     <OrderContext.Provider value={value}>
