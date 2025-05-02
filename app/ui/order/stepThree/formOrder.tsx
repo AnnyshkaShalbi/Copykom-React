@@ -86,7 +86,7 @@ export default function FormOrder() {
       setValues({ phone: '', name: '', email: '', comment: '' });
   
       setTimeout(() => {
-        router.push('/thanks');
+        router.push(`/thanks?phone=${encodeURIComponent(formData.phone)}`);
       }, 1000);
       
     } catch (error: any) {

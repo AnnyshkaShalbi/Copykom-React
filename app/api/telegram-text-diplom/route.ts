@@ -90,11 +90,8 @@ ${options.plasticFileOptions.atEnd.enabled
   ? `- В конце: ${options.plasticFileOptions.atEnd.count}` 
   : ''}
 ` : '❌ Без пластиковых файлов ❌'}
-
 🗓 Дата заполнения заявки: ${formattedDate} в ${formattedTime} 🗓
-
               ⌛️ ⌛️ ⌛️
-
 🗓 Дата готовности: ${readinessDate.formattedDate} с ${readinessDate.formattedTime} 🗓
 
 💰🧮 ЦЕНА: ${price} ₽ 🧮💰

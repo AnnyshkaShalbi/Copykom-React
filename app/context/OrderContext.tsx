@@ -1,39 +1,17 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useEffect, useCallback } from 'react';
 import { blueColors, redColors, logos } from "@/app/lib/placeholder-data";
 import { OrderContextValue, OrderState, OrderActions  } from "@/app/lib/types/order"
 import { calculateReadinessDate, getFinalCoverPath, getCoverPrice, calculateTotalPrice } from "@/app/lib/utils/order"
+import { INITIAL_STATE } from "@/app/lib/variables/order"
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
 
 export function OrderProvider({ children }: { children: ReactNode }) {
   
   const [state, setState] = useState<OrderState>({
-    currentStep: 1,
-    selectedColor: 'bg-primary',
-    selectedCover: 0,
-    selectedLogo: 0,
-    selectedPrintColor: 'black-white',
-    pocketForReview: false,
-    pocketCD: false,
-    plasticFile: false,
-    plasticFileOptions: {
-      beforeTitle: {
-        enabled: false,
-        count: 2,
-      },
-      afterTitle: {
-        enabled: false,
-        count: 2,
-      },
-      atEnd: {
-        enabled: false,
-        count: 2,
-      }
-    },
-    pdfFile: null,
-    coloredPages: [],
+    ...INITIAL_STATE,
     readinessDate: calculateReadinessDate() 
   });
 
@@ -70,6 +48,13 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   const colorText = useMemo(() => {
     return state.selectedColor === 'bg-primary' ? 'Синяя' : 'Красная';
   }, [state.selectedColor]);
+
+  const resetOrder = useCallback(() => {
+    setState({
+      ...INITIAL_STATE,
+      readinessDate: calculateReadinessDate() 
+    });
+  }, []);
 
   const actions = useMemo<OrderActions>(() => ({
     // Основные методы
@@ -201,7 +186,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       };
     },
 
-  }), [state, selectedCoverItem, selectedLogoItem]);
+    resetOrder,
+
+  }), [resetOrder, state, selectedCoverItem, selectedLogoItem]);
 
   // Обновляем дату готовности при монтировании
   useEffect(() => {

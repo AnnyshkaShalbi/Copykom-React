@@ -52,7 +52,7 @@ export type OrderActions = {
   setPlasticFile: (value: boolean) => void;
   togglePlasticFileOption: (option: keyof PlasticFileOptions) => void;
   setPlasticFileCount: (option: keyof PlasticFileOptions, count: number) => void;
-
+  resetOrder: () => void;
   goToNextStep: () => void;
   goToPrevStep: () => void;
   getFinalCoverPath: () => string;
