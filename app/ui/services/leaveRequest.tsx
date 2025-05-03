@@ -9,7 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FileInfo } from "@/app/lib/types/order"
 import { useServicesForm } from "@/app/hooks/useServicesForm"
 import { validatePhone } from "@/app/lib/validation"
-
+import { tenor_sans } from "@/app/ui/fonts"
 
 export default function LeaveRequest() {
   const [ pdfFile, setPdfFile ] = useState<FileInfo>(null);
@@ -60,30 +60,33 @@ const Download = ({
   };
 
   return(
-    <div className="border border-border border-dashed flex justify-between flex-col p-12 items-center gap-6">
-      <input 
-        type="file"
-        ref={fileInputRef}
-        accept=".pdf"
-        id={`updateFileInput-${servicePath}`}
-        className="hidden"
-        onChange={handleFileChange}
-      />
-      <label 
-        htmlFor={`updateFileInput-${servicePath}`}
-        className="flex flex-col justify-center items-center text-gray text-sm leading-normal cursor-pointer"
-      >
-        <Image
-          src={pdfFile ? '/fileDone.svg' : '/pdfFile.svg'}
-          height={100}
-          width={100}
-          alt={pdfFile ? "PDF файл загружен" : "Загрузить файл диплома в формате pdf"}
-          className="fade-in"
+    <div>
+      <h3 className={`hidden lg:block uppercase pb-4 text-lg ${tenor_sans.className}`}>оставь заявку</h3>
+      <div className="border border-border border-dashed flex justify-between flex-col p-12 items-center gap-6">
+        <input 
+          type="file"
+          ref={fileInputRef}
+          accept=".pdf"
+          id={`updateFileInput-${servicePath}`}
+          className="hidden"
+          onChange={handleFileChange}
         />
-        { pdfFile ? <p>Количество страниц — {pdfFile.pages}</p> : <p>Загрузите файл в формате PDF</p> }
-        { pdfFile && <p>Размер файла — {pdfFile.size}</p> }
-      </label>
-      <Button onClick={handleButtonClick}>Загрузить файл</Button>
+        <label 
+          htmlFor={`updateFileInput-${servicePath}`}
+          className="flex flex-col justify-center items-center text-gray text-sm leading-normal cursor-pointer"
+        >
+          <Image
+            src={pdfFile ? '/fileDone.svg' : '/pdfFile.svg'}
+            height={100}
+            width={100}
+            alt={pdfFile ? "PDF файл загружен" : "Загрузить файл диплома в формате pdf"}
+            className="fade-in"
+          />
+          { pdfFile ? <p>Количество страниц — {pdfFile.pages}</p> : <p>Загрузите файл в формате PDF</p> }
+          { pdfFile && <p>Размер файла — {pdfFile.size}</p> }
+        </label>
+        <Button onClick={handleButtonClick}>Загрузить файл</Button>
+      </div>
     </div>
   )
 }

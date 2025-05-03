@@ -52,7 +52,6 @@ export async function POST(request: Request) {
     // Формирование сообщения
     const text = `
 📣🎓 Новый заказ 🎓📣
-ID заказа: ${Date.now().toString()}
 👤 Имя: ${client.name} 👤
 📞 Телефон: ${client.phone} 📞
 📬 Email: ${client.email || 'не указан'} 📬
@@ -62,6 +61,7 @@ ${color === 'Синяя' ? '📘 Синяя обложка 📘' : '📕 Кра�
 Заголовок обложки: ${embossing.text}
 Заголовок логотипа: ${logo}
 
+📃 Имя файла: ${pdfFile?.name} 📃
 📃 Всего страниц: ${totalPages} 📃
 📃 Количество страниц ч/б: ${bwPages} 📃
 📃 Количество цветных страниц: ${coloredPages.length} 📃

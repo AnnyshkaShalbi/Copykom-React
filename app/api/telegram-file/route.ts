@@ -4,7 +4,6 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const pdfFile = formData.get('pdfFile') as File | null;
-    const orderId = formData.get('orderId') as string | null;
 
     if (!pdfFile) {
       return NextResponse.json(
@@ -38,7 +37,7 @@ export async function POST(request: Request) {
     const telegramFormData = new FormData();
     telegramFormData.append('chat_id', TG_CHAT_ID);
     telegramFormData.append('document', new Blob([fileBuffer]), 
-      `ID_${orderId || 'unknown'}_${pdfFile.name}`);
+      `${pdfFile.name}`);
 
     // Отправляем файл в Telegram
     const telegramUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendDocument`;

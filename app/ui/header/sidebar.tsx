@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from 'next/link';
 import { tenor_sans } from "../fonts";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 
 const links = [
   { name: 'Печать документов', href: '/services/copydoc' },
@@ -20,20 +21,20 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
-      <NavLinks />
-      <SidebarFooter />
+      <NavLinks onClose={onClose} />
+      <SidebarFooter onClose={onClose} />
     </div>
   );
 }
 
-const NavLinks = () => {
+const NavLinks = ({ onClose }: { onClose: () => void }) => {
   return(
     <nav className="pb-4">
       <ul className='flex flex-col'>
-        <li>
-          <NavTitle text="Печать диплома" link="/services/order" />
+        <li onClick={onClose}>
+          <NavTitle text="Печать диплома" link="/order" />
         </li>
-        <li>
+        <li onClick={onClose}>
           <NavTitle text="Проектная документация" link="/services/projectdoc" />
         </li>
         <li>
@@ -42,7 +43,7 @@ const NavLinks = () => {
 
         {links.map((link) => {
           return (
-            <li key={link.name}>
+            <li key={link.name} onClick={onClose}>
               <Link
                 href={link.href}
                 className="w-full flex pb-2"
@@ -76,7 +77,38 @@ const NavTitle = ({ text, link }: NavTitleProps) => {
   )
 }
 
-const SidebarFooter = () => {
+const SidebarFooter = ({ onClose }: { onClose: () => void }) => {
+  const router = useRouter();
+  const pathName = usePathname()
+
+  const handleScrollToMap = () => {
+    if(pathName != '/') {
+      router.push('/')
+
+      setTimeout(() => {
+        const mapBlock = document.getElementById('map');
+        onClose()
+        if(mapBlock) {
+          mapBlock?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 1000)
+    }
+    
+    const mapBlock = document.getElementById('map');
+    onClose()
+    if(mapBlock) {
+      mapBlock?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollToFooter = () => {
+    const footer = document.getElementById('footer');
+    onClose()
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return(
     <div className="flex justify-between items-center flex-wrap gap-4">
       <Link
@@ -86,7 +118,7 @@ const SidebarFooter = () => {
       >+ 7 (915) 431-06-66</Link>
 
       <ul className="flex items-center gap-5">
-        <li className="flex items-center gap-2">
+        <li className="flex items-center gap-2" onClick={handleScrollToMap}>
           <Image
             width={16}
             height={16}
@@ -95,7 +127,7 @@ const SidebarFooter = () => {
           />
           Москва
         </li>
-        <li className="relative pl-5 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full before:bg-gray-500">
+        <li onClick={handleScrollToFooter} className="relative pl-5 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full before:bg-gray-500">
           Контакты
         </li>
       </ul>

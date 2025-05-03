@@ -56,8 +56,6 @@ export async function POST(request: Request) {
 📄 <b>Файл:</b> ${fileName}
 📏 <b>Размер:</b> ${fileSize}
 📑 <b>Страниц:</b> ${pageCount}
-
-🆔 <i>ID заказа:</i> ${Date.now().toString()}
     `;
 
     // Отправка в Telegram

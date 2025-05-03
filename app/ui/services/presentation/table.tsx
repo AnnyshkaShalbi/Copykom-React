@@ -1,7 +1,9 @@
+import { tenor_sans } from "../../fonts"
+
 export default function TablePresentations() {
   return(
     <div>
-      <h3 className="uppercase">прайс-лист</h3>
+      <h3 className={`hidden lg:block uppercase pb-4 border-b border-primary text-lg ${tenor_sans.className}`}>прайс-лист</h3>
       <div className="overflow-x-scroll">
         <table className="min-w-[650px] w-full border-t border-[#BEC7E2] border-collapse">
           <thead>
