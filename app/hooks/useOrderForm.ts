@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { validatePhone, validateEmail, validateName } from '@/app/lib/validation';
 
 interface OrderFormValues {
   phone: string;
@@ -18,31 +19,23 @@ export const useOrderForm = () => {
   const [errors, setErrors] = useState<Partial<OrderFormValues>>({});
 
   const validate = (): boolean => {
-    const newErrors: Partial<OrderFormValues> = {};
-    
-    if (!values.phone.trim()) {
-      newErrors.phone = 'Номер телефона обязателен';
-    } else if (!/^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/.test(values.phone)) {
-      newErrors.phone = 'Введите корректный номер (+7XXX...)';
-    }
-    
-    if (!values.name.trim()) {
-      newErrors.name = 'Имя обязательно';
-    } else if (values.name.length < 2) {
-      newErrors.name = 'Минимум 2 символа';
-    }
-    
-    if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-      newErrors.email = 'Некорректный email';
-    }
+    const newErrors: Partial<OrderFormValues> = {
+      phone: validatePhone(values.phone),
+      name: validateName(values.name),
+      email: validateEmail(values.email),
+    };
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Убираем поля, где ошибки undefined
+    const filteredErrors = Object.fromEntries(
+      Object.entries(newErrors).filter(([_, value]) => value !== undefined)
+    ) as Partial<OrderFormValues>;
+
+    setErrors(filteredErrors);
+    return Object.keys(filteredErrors).length === 0;
   };
 
   const handleChange = (field: keyof OrderFormValues) => (value: string) => {
     setValues(prev => ({ ...prev, [field]: value }));
-    // Очищаем ошибку при изменении
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
