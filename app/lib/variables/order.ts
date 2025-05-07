@@ -27,4 +27,4 @@ export const INITIAL_STATE: OrderState = {
   pdfFile: null,
   coloredPages: [],
   readinessDate: calculateReadinessDate()
-}
+} 
