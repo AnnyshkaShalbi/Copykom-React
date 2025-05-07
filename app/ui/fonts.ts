@@ -9,4 +9,9 @@ export const noto_sans = Noto_Sans({
   subsets: ['latin'],
 });
 
+export const tenor_sans = Tenor_Sans({
+  weight: ['400'],
+  subsets: ['latin'],
+});
+
 
