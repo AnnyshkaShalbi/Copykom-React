@@ -95,7 +95,7 @@ export type CoverItem = {
 
 export type LogoItem = {
   id: number,
-  price: boolean,
+  price: number | boolean,
   title: string,
   image: string,
 }

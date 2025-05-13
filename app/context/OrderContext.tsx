@@ -193,7 +193,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   // Обновляем дату готовности при монтировании
   useEffect(() => {
     actions.updateReadinessDate();
-  }, []);
+  }, [actions]);
 
   const value = useMemo<OrderContextValue>(() => ({
     ...state,

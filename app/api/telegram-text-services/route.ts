@@ -1,4 +1,3 @@
-// app/api/telegram-text-services/route.ts
 import { NextResponse } from 'next/server';
 
 interface RequestBody {
@@ -84,12 +83,16 @@ export async function POST(request: Request) {
       orderId: Date.now().toString(),
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error:', error);
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Внутренняя ошибка сервера';
+    
     return NextResponse.json(
       { 
         success: false, 
-        error: error.message || 'Внутренняя ошибка сервера'
+        error: errorMessage
       },
       { status: 500 }
     );

@@ -59,12 +59,16 @@ export async function POST(request: Request) {
       telegramResponse: responseData
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error sending file to Telegram:', error);
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Internal server error';
+    
     return NextResponse.json(
       { 
         success: false, 
-        error: error.message || 'Internal server error'
+        error: errorMessage
       },
       { status: 500 }
     );

@@ -123,12 +123,16 @@ ${options.plasticFileOptions.atEnd.enabled
       orderId: Date.now().toString(),
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error:', error);
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Internal server error';
+    
     return NextResponse.json(
       { 
         success: false, 
-        error: error.message || 'Internal server error'
+        error: errorMessage
       },
       { status: 500 }
     );
