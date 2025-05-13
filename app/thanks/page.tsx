@@ -24,7 +24,7 @@ export default function Page() {
       <h1 className={`text-primary uppercase text-[clamp(1.2rem,3vw,1.875rem)] leading-[clamp(2rem,3vw,2.5rem)] font-normal whitespace-nowrap ${tenor_sans.className}`}>спасибо за заказ!</h1>
       <p className={`${inter.className} text-center text-base sm:text-lg leading-6 sm:leading-7`}>В течение 5 минут менеджер свяжется с тобой по номеру для подтверждения заказа</p>
       <span className="text-gray text-lg leading-9 text-center">{phone}</span>
-      <Link href="/" className="z-10 link">Вернуться на главную</Link>
+      <Link href="/" className="z-[1] link">Вернуться на главную</Link>
   </div>
   )
 }

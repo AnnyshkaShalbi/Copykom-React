@@ -48,7 +48,7 @@ export default function Dropdown({ buttonLabel, items }: DropdownProps) {
       </div>
 
       <div
-        className={`absolute left-0 z-10 mt-5 w-60 origin-top-right bg-white shadow-[4px_7px_15px_0px_rgba(56,65,90,0.3019607843)] transition-all duration-300 ${
+        className={`absolute left-0 z-20 mt-5 w-60 origin-top-right bg-white shadow-[4px_7px_15px_0px_rgba(56,65,90,0.3019607843)] transition-all duration-300 ${
           isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
         }`}
         role="menu"

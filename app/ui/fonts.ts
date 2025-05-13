@@ -1,4 +1,4 @@
-import { Inter, Noto_Sans } from 'next/font/google';
+import { Inter, Noto_Sans, Tenor_Sans } from 'next/font/google';
  
 export const inter = Inter({ 
   subsets: ['latin']
