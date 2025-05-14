@@ -1,4 +1,4 @@
-import { ReadinessDate, CoverItem, LogoItem, OrderState, PlasticFileOptions, FileInfo } from "../types/order"
+import { ReadinessDate, CoverItem, LogoItem, PlasticFileOptions, FileInfo } from "../types/order"
 
 export const calculateReadinessDate = (): ReadinessDate => {
   const now = new Date();

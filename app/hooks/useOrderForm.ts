@@ -27,7 +27,7 @@ export const useOrderForm = () => {
 
     // Убираем поля, где ошибки undefined
     const filteredErrors = Object.fromEntries(
-      Object.entries(newErrors).filter(([_, value]) => value !== undefined)
+      Object.entries(newErrors).filter(([, value]) => value !== undefined)
     ) as Partial<OrderFormValues>;
 
     setErrors(filteredErrors);

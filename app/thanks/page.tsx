@@ -17,7 +17,7 @@ export default function Page() {
     if (phone) {
       resetOrder();
     }
-  }, []);
+  }, [phone, resetOrder]);
 
   return(
     <div className="w-full p-10 md:p-[2.5rem_3.5rem] after:hidden md:max-w-[37.5rem] flex flex-col items-center justify-center gap-2.5 bg-primary-light relative mx-auto py-[3.125rem] px-[4.6875rem] md:after:block md:after:content-[''] md:after:absolute md:after:w-full md:after:h-full md:after:border md:after:border-primary md:after:top-4 md:after:left-4">

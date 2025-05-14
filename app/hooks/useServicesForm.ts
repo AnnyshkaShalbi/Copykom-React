@@ -5,17 +5,22 @@ type ValidationRules<T> = {
   [key in keyof T]?: (value: T[key]) => string | undefined;
 };
 
+// Тип для ошибок
+type FormErrors<T> = {
+  [key in keyof T]?: string;
+};
+
 // Основной хук
-export const useServicesForm = <T extends Record<string, any>>(
+export const useServicesForm = <T extends Record<string, unknown>>(
   initialValues: T,
   validationRules: ValidationRules<T> = {}
 ) => {
   const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Partial<T>>({});
+  const [errors, setErrors] = useState<FormErrors<T>>({});
 
   // Валидация всех полей
   const validate = (): boolean => {
-    const newErrors: Partial<T> = {};
+    const newErrors: FormErrors<T> = {};
 
     for (const key in validationRules) {
       const rule = validationRules[key];

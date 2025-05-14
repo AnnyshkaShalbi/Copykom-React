@@ -5,8 +5,6 @@ import { Button } from "../../common/button";
 import ItemTitle from "./itemTitle";
 import Image from "next/image";
 import { useOrder } from '@/app/context/OrderContext';
-import { useMemo } from "react";
-import { logos } from "@/app/lib/placeholder-data";
 
 export default function FinalCover() {
   const {

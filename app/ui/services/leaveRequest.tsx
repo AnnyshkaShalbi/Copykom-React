@@ -110,15 +110,15 @@ const Form = ({ pdfFile }: { pdfFile: FileInfo | null }) => {
   )
 
   const handleSubmit = async () => {
-    if (!validate()) return
+    if (!validate()) return;
     if (!pdfFile || !pdfFile.file) {
-      alert('Загрузите файл')
-      return
+      alert('Загрузите файл');
+      return;
     }
 
-    setIsSubmitting(true)
-    setSubmitError(null)
-    setSubmitSuccess(false)
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
     try {
       // 1. Сначала отправляем текстовые данные
@@ -132,50 +132,58 @@ const Form = ({ pdfFile }: { pdfFile: FileInfo | null }) => {
           pageCount: pdfFile.pages,
           fileSize: pdfFile.size
         }),
-      })
+      });
 
-      const textResult = await textResponse.json()
+      const textResult = await textResponse.json();
       
       if (!textResponse.ok || !textResult.success) {
-        throw new Error(textResult.error || 'Ошибка при отправке заявки')
+        throw new Error(textResult.error || 'Ошибка при отправке заявки');
       }
 
       // 2. Отправляем файл
       try {
-        const fileFormData = new FormData()
-        fileFormData.append('pdfFile', pdfFile.file)
-        fileFormData.append('orderId', textResult.orderId || Date.now().toString())
+        const fileFormData = new FormData();
+        fileFormData.append('pdfFile', pdfFile.file);
+        fileFormData.append('orderId', textResult.orderId || Date.now().toString());
 
         const fileResponse = await fetch('/api/telegram-file', {
           method: 'POST',
           body: fileFormData,
-        })
+        });
 
-        const fileResult = await fileResponse.json()
+        const fileResult = await fileResponse.json();
         
         if (!fileResponse.ok || !fileResult.success) {
-          console.warn('Файл не отправлен:', fileResult.error)
-          setSubmitError('Заявка отправлена, но файл не был прикреплен. Пожалуйста, свяжитесь с нами.')
+          console.warn('Файл не отправлен:', fileResult.error);
+          setSubmitError('Заявка отправлена, но файл не был прикреплен. Пожалуйста, свяжитесь с нами.');
         }
-      } catch (fileError) {
-        console.error('File upload error:', fileError)
-        setSubmitError('Заявка отправлена, но файл не был прикреплен. Пожалуйста, свяжитесь с нами.')
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error 
+          ? error.message 
+          : 'Произошла неизвестная ошибка';
+        setSubmitError(errorMessage || 'Произошла ошибка. Попробуйте позже.');
+        console.error('Form submission error:', error);
+      } finally {
+        setIsSubmitting(false);
       }
 
-      setSubmitSuccess(true)
+      setSubmitSuccess(true);
 
       // Перенаправление на страницу благодарности
       setTimeout(() => {
-        router.push(`/thanks?phone=${encodeURIComponent(values.phone)}`)
-      }, 1500)
+        router.push(`/thanks?phone=${encodeURIComponent(values.phone)}`);
+      }, 1500);
       
-    } catch (error: any) {
-      setSubmitError(error.message || 'Произошла ошибка. Попробуйте позже.')
-      console.error('Form submission error:', error)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Произошла неизвестная ошибка';
+      setSubmitError(errorMessage || 'Произошла ошибка. Попробуйте позже.');
+      console.error('Form submission error:', error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const isSubmitDisabled = !values.phone || !!errors.phone || !pdfFile || isSubmitting
 

@@ -1,6 +1,7 @@
 import CheckboxCircle from "../../common/checkboxCircle"
 import CheckboxSquare from "../../common/checkboxSquare"
-import { useOrder, PlasticFileOptions } from '@/app/context/OrderContext';
+import { useOrder } from '@/app/context/OrderContext';
+import { PlasticFileOptions } from "@/app/lib/types/order"
 
 export default function UpdateFileOption() {
   return(

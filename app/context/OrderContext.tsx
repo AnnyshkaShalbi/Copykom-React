@@ -56,6 +56,13 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const updateReadinessDate = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      readinessDate: calculateReadinessDate()
+    }));
+  }, []);
+
   const actions = useMemo<OrderActions>(() => ({
     // Основные методы
     setCurrentStep: (step) => setState(prev => ({ ...prev, currentStep: step })),
@@ -103,14 +110,6 @@ export function OrderProvider({ children }: { children: ReactNode }) {
 
     goToNextStep: () => setState(prev => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 3) })),
     goToPrevStep: () => setState(prev => ({ ...prev, currentStep: Math.max(prev.currentStep - 1, 1) })),
-
-    // Новая функция для обновления даты готовности
-    updateReadinessDate: () => {
-      setState(prev => ({
-        ...prev,
-        readinessDate: calculateReadinessDate()
-      }));
-    },
 
     getFinalCoverPath: () => getFinalCoverPath(
       state.selectedColor,
@@ -186,18 +185,30 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       };
     },
 
-    resetOrder,
+    resetOrder, updateReadinessDate
 
-  }), [resetOrder, state, selectedCoverItem, selectedLogoItem]);
+  }), [
+    resetOrder, 
+    state, 
+    selectedCoverItem, 
+    selectedLogoItem,
+    coverPrice,       
+    logoPrice,        
+    colorText,        
+    embossingType,    
+    logoText,         
+    updateReadinessDate 
+  ]);
 
   // Обновляем дату готовности при монтировании
   useEffect(() => {
-    actions.updateReadinessDate();
-  }, [actions]);
+    updateReadinessDate();
+  }, [updateReadinessDate]); // Безопасная зависимость
 
   const value = useMemo<OrderContextValue>(() => ({
     ...state,
     ...actions,
+    getOrderSummary: actions.getOrderSummary,
     computed: {
       embossingType,
       logoText,

@@ -89,8 +89,11 @@ export default function FormOrder() {
         router.push(`/thanks?phone=${encodeURIComponent(formData.phone)}`);
       }, 1000);
       
-    } catch (error: any) {
-      setSubmitError(error.message || 'Произошла ошибка. Попробуйте позже.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Произошла ошибка. Попробуйте позже.';
+      setSubmitError(errorMessage);
       console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);

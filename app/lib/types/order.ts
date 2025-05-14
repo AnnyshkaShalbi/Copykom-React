@@ -61,7 +61,7 @@ export type OrderActions = {
   setPdfFile: (fileInfo: FileInfo) => void;
   toggleColoredPage: (pageNumber: number) => void;
   updateReadinessDate: () => void; 
-  getOrderSummary: () => void
+  getOrderSummary: () => OrderSummary;
 };
 
 export type OrderContextValue = OrderState & OrderActions & {
