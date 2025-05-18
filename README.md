@@ -29,7 +29,7 @@
   ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.12%2B-0055FF)  
 
 - **Backend**:  
-  ![Next.js API Routes](https://img.shields.io/badge/Next.js_API_Routes-13.4%2B-black?logo=next.js)  
+  ![Next.js API Routes](https://img.shields.io/badge/Next.js_API_Routes-15.1.0%2B-black?logo=next.js)  
   ![Telegram Bot API](https://img.shields.io/badge/Telegram_Bot_API-6.7%2B-26A5E4?logo=telegram)  
 
 - **Инфраструктура**:  
