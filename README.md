@@ -3,6 +3,8 @@
 
 **CopyKom** — это онлайн-сервис для быстрого и качественного оформления дипломов, курсовых и других документов. Сайт предлагает удобный интерфейс для заказа услуг печати, брошюровки и переплёта с доставкой по России.
 
+![Preview](public/readme.png)
+
 🚀 **Vercel**: [https://copykom-react.vercel.app](https://copykom-react.vercel.app)
 
 ## 🌟 Основные преимущества
@@ -21,8 +23,8 @@
 ## 🛠 Технологии
 
 - **Frontend**:  
-  ![Next.js](https://img.shields.io/badge/Next.js-13.4%2B-black?logo=next.js)  
-  ![React](https://img.shields.io/badge/React-18.2%2B-blue?logo=react)  
+  ![Next.js](https://img.shields.io/badge/Next.js-15.1.0%2B-black?logo=next.js)  
+  ![React](https://img.shields.io/badge/React-^19.0.0%2B-blue?logo=react)  
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3%2B-06B6D4?logo=tailwind-css)  
   ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.12%2B-0055FF)  
 
@@ -36,6 +38,6 @@
 
 ## 🚀 Быстрый старт
 
-1. **Установка зависимостей**:
+**Установка зависимостей**:
    ```bash
    pnpm install
