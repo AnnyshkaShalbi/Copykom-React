@@ -7,9 +7,13 @@ import Tabs from "@/app/ui/common/tabs";
 export const metadata: Metadata = {
   title: 'Печать проектной документации в Москве | Копиком',
   description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+  alternates: {
+    canonical: 'https://copykom.ru/services/projectdoc',
+  },
   openGraph: {
     title: 'Печать проектной документации в Москве | Копиком',
     description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+    url: 'https://copykom.ru/services/projectdoc',
   },
 };
 

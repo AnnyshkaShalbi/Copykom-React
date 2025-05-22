@@ -7,9 +7,13 @@ import LeaveRequest from "../../ui/services/leaveRequest";
 export const metadata: Metadata = {
   title: 'Печать чертежей в Москве | Копиком',
   description: 'Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!',
+  alternates: {
+    canonical: 'https://copykom.ru/services/drawings',
+  },
   openGraph: {
     title: 'Печать чертежей в Москве | Копиком',
     description: 'Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!',
+    url: 'https://copykom.ru/services/drawings',
   },
 };
 

@@ -7,9 +7,13 @@ import Tabs from "@/app/ui/common/tabs";
 export const metadata: Metadata = {
   title: 'Печать документов в Москве | Копиком',
   description: 'Любые документы могут быть распечатаны в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+  alternates: {
+    canonical: 'https://copykom.ru/services/copydoc',
+  },
   openGraph: {
     title: 'Печать документов в Москве | Копиком',
     description: 'Любые документы могут быть распечатаны в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+    url: 'https://copykom.ru/services/copydoc',
   },
 };
 

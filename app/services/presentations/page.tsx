@@ -7,9 +7,13 @@ import Tabs from "@/app/ui/common/tabs";
 export const metadata: Metadata = {
   title: 'Печать презентаций в Москве | Копиком',
   description: 'Печать презентаций в Москве | Копиком',
+  alternates: {
+    canonical: 'https://copykom.ru/services/presentations',
+  },
   openGraph: {
     title: 'Печать презентаций в Москве | Копиком',
     description: 'Печать презентаций в Москве | Копиком',
+    url: 'https://copykom.ru/services/presentations',
   },
 };
 

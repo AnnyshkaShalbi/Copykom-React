@@ -7,9 +7,13 @@ import LeaveRequest from "../../ui/services/leaveRequest";
 export const metadata: Metadata = {
   title: 'Печать лекал и выкроек в Москве | Копиком',
   description: 'Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере. ',
+  alternates: {
+    canonical: 'https://copykom.ru/services/patterns',
+  },
   openGraph: {
     title: 'Печать лекал и выкроек в Москве | Копиком',
     description: 'Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере. ',
+    url: 'https://copykom.ru/services/patterns',
   },
 };
 

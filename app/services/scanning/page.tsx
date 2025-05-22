@@ -7,9 +7,13 @@ import LeaveRequest from "../../ui/services/leaveRequest";
 export const metadata: Metadata = {
   title: 'Сканирование документов в Москве | Копиком',
   description: 'Любые документы могут быть отсканированы как в ч/б варианте, так и в цвете!',
+  alternates: {
+    canonical: 'https://copykom.ru/services/scanning',
+  },
   openGraph: {
     title: 'Сканирование документов в Москве | Копиком',
     description: 'Любые документы могут быть отсканированы как в ч/б варианте, так и в цвете!',
+    url: 'https://copykom.ru/services/scanning',
   },
 };
 

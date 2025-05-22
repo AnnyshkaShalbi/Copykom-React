@@ -7,9 +7,13 @@ import LeaveRequest from "../../ui/services/leaveRequest";
 export const metadata: Metadata = {
   title: 'Твёрдый переплёт дипломов в Москве | Копиком',
   description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете',
+  alternates: {
+    canonical: 'https://copykom.ru/services/hardcover',
+  },
   openGraph: {
     title: 'Твёрдый переплёт дипломов в Москве | Копиком',
     description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете',
+    url: 'https://copykom.ru/services/hardcover',
   },
 };
 

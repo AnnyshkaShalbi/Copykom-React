@@ -7,9 +7,13 @@ import Tabs from "@/app/ui/common/tabs";
 export const metadata: Metadata = {
   title: 'Брошюровка на пластиковую пружину в Москве | Копиком',
   description: 'Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3.',
+  alternates: {
+    canonical: 'https://copykom.ru/services/brochure',
+  },
   openGraph: {
     title: 'Брошюровка на пластиковую пружину в Москве | Копиком',
     description: 'Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3.',
+    url: 'https://copykom.ru/services/brochure',
   },
 };
 
