@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableScanning from "../../ui/services/scanning/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
+
+export const metadata: Metadata = {
+  title: 'Сканирование документов в Москве | Копиком',
+  description: 'Любые документы могут быть отсканированы как в ч/б варианте, так и в цвете!',
+  openGraph: {
+    title: 'Сканирование документов в Москве | Копиком',
+    description: 'Любые документы могут быть отсканированы как в ч/б варианте, так и в цвете!',
+  },
+};
 
 const tabsScanning = [
   {

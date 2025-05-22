@@ -1,5 +1,17 @@
 import Link from "next/link";
 import { tenor_sans, inter } from '@/app/ui/fonts'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+  other: {
+    'googlebot': 'noindex',
+    'yandex': 'none',
+  },
+};
 
 export default function Page() {
   return (

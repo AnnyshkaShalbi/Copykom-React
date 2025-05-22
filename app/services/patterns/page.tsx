@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TablePatterns from "../../ui/services/patterns/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
+
+export const metadata: Metadata = {
+  title: 'Печать лекал и выкроек в Москве | Копиком',
+  description: 'Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере. ',
+  openGraph: {
+    title: 'Печать лекал и выкроек в Москве | Копиком',
+    description: 'Распечатаем лекала и выкройки любой длины, даже свыше 3-х метров и в реальном размере. ',
+  },
+};
 
 const tabsPatterns = [
   {

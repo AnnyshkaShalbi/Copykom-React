@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import TableCopydoc from "../../ui/services/copydoc/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
+
+export const metadata: Metadata = {
+  title: 'Печать документов в Москве | Копиком',
+  description: 'Любые документы могут быть распечатаны в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+  openGraph: {
+    title: 'Печать документов в Москве | Копиком',
+    description: 'Любые документы могут быть распечатаны в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете.',
+  },
+};
 
 const tabsCopydoc = [
   {

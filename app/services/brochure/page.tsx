@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import TableBrochure from "../../ui/services/brochure/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
+
+export const metadata: Metadata = {
+  title: 'Брошюровка на пластиковую пружину в Москве | Копиком',
+  description: 'Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3.',
+  openGraph: {
+    title: 'Брошюровка на пластиковую пружину в Москве | Копиком',
+    description: 'Сброшюруем твой документ быстро, доступные форматы: А5, А4, А3.',
+  },
+};
 
 const tabsBrochure = [
   {

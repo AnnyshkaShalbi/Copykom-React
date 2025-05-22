@@ -1,5 +1,6 @@
 'use client'
 
+import type { Metadata } from "next";
 import { useOrder } from '@/app/context/OrderContext';
 
 import Title from "@/app/ui/common/title";
@@ -7,6 +8,15 @@ import Steps from '../ui/order/steps'
 import StepOne from '../ui/order/stepOne/stepOne'
 import StepTwo from '../ui/order/stepTwo/stepTwo'
 import StepThree from '../ui/order/stepThree/stepThree';
+
+export const metadata: Metadata = {
+  title: 'Твёрдый переплёт дипломов в Москве | Копиком',
+  description: 'Профессиональный твёрдый переплёт дипломов и диссертаций с эмблемой вуза. Гарантия качества. Срочное изготовление за 1-2 дня.',
+  openGraph: {
+    title: 'Твёрдый переплёт дипломов в Москве | Копиком',
+    description: 'Профессиональный твёрдый переплёт дипломов и диссертаций с эмблемой вуза. Гарантия качества. Срочное изготовление за 1-2 дня.',
+  },
+};
 
 export default function Page() {
   const { currentStep } = useOrder();

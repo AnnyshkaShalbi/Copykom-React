@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableHardcover from "../../ui/services/hardcover/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
+
+export const metadata: Metadata = {
+  title: 'Твёрдый переплёт дипломов в Москве | Копиком',
+  description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете',
+  openGraph: {
+    title: 'Твёрдый переплёт дипломов в Москве | Копиком',
+    description: 'Любые документы могут быть откопированы в высоком качестве прямо у вас на глазах как в ч/б-варианте, так и в цвете',
+  },
+};
 
 const tabsHardcover = [
   {

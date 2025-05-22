@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
 import TableDrawings from "../../ui/services/drawings/table";
 import LeaveRequest from "../../ui/services/leaveRequest";
+
+export const metadata: Metadata = {
+  title: 'Печать чертежей в Москве | Копиком',
+  description: 'Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!',
+  openGraph: {
+    title: 'Печать чертежей в Москве | Копиком',
+    description: 'Любые чертежи могут быть распечатаны в высоком качестве, все форматы от А4 до А0+, а также нестандартные форматы чертежей!',
+  },
+};
 
 const tabsDrawings = [
   {
