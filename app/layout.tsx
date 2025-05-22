@@ -5,9 +5,43 @@ import Header from "./ui/header/header";
 import Footer from "./ui/footer/footer";
 import { OrderProvider } from '@/app/context/OrderContext';
 
+
 export const metadata: Metadata = {
-  title: "ДЕШЁВАЯ ПЕЧАТЬ СТУДЕНТАМ",
-  description: "❗️твёрдый переплёт диплома с эмблемой твоего вуза",
+  title: 'Дешёвая печать для студентов в Москве | Переплёт дипломов — Копиком',
+  description: '❗️твёрдый переплёт диплома с эмблемой твоего вуза',
+  keywords: [
+    'печать', 'студентам', 'диплом', 'переплёт', 'Москва', 'сканирование', 
+    'брошюровка', 'печать дипломов', 'переплёт дипломов Москва', 
+    'срочная печать для студентов', 'диплом с эмблемой вуза','копицентр недорого',],
+  metadataBase: new URL('https://copykom.ru'),
+  openGraph: {
+    title: 'Дешёвая печать для студентов в Москве | Переплёт дипломов — Копиком',
+    description: '❗️твёрдый переплёт диплома с эмблемой твоего вуза',
+    url: 'https://copykom.ru',
+    siteName: 'Копиком',
+    images: [
+      {
+        url: '/meta/copykom.png', 
+        width: 517,
+        height: 497,
+      },
+    ],
+    locale: 'ru_RU',
+    type: 'website',
+  },
+  robots: {
+    index: true, 
+    follow: true,
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/meta/apple-touch-icon.png',
+  },
+  other: {
+    'geo.region': 'RU-MOW', 
+    'geo.placename': 'Moscow',
+    'og:image:alt': 'Копиком — печать и переплёт документов',
+  },
 };
 
 export default function RootLayout({
