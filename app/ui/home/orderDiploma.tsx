@@ -109,17 +109,35 @@ const CoverDiplom = () => {
   return (
     <div className="w-full">
       <picture>
+        {/* Версия для больших экранов (Desktop) */}
         <source
-          srcSet="/diplomsMain/img-1920х1080.png"
+          srcSet="/diplomsMain/img-1920х1080.webp"
           media="(min-width: 1024px)"
+          type="image/webp"
+        />
+        <source
+          srcSet="/diplomsMain/img-1920x1080.png"
+          media="(min-width: 1024px)"
+          type="image/png"
+        />
+
+        {/* Версия для средних экранов (Tablet) */}
+
+        <source
+          srcSet="/diplomsMain/img-980x700.webp"
+          media="(min-width: 768px)"
+          type="image/webp"
         />
         <source
           srcSet="/diplomsMain/img-980x700.png"
           media="(min-width: 768px)"
+          type="image/png"
         />
+
+        {/* Версия для мобильных устройств (Mobile) */}
         <source
-          srcSet="/diplomsMain/img-360x840.png"
-          media="(min-width: 360px)"
+          srcSet="/diplomsMain/img-360x840.webp"
+          type="image/webp"
         />
         <Image
           src="/diplomsMain/img-360x840.png"
