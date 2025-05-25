@@ -7,7 +7,12 @@ export default function Maps() {
     <div id="map" className="py-12 sm:py-14 md:py-16 lg:py-20">
       <Title />
       <div>
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ab8083df1b3091544fa582203d1bc98d46fbc2d03dcebb92311d5ab3fe0072652&amp;source=constructor" width="100%" height="345" frameBorder="0"></iframe>
+        <iframe 
+          src="https://yandex.ru/map-widget/v1/?um=constructor%3Ab8083df1b3091544fa582203d1bc98d46fbc2d03dcebb92311d5ab3fe0072652&amp;source=constructor" 
+          title="Наши копицентры находятся: Метро Авиамоторная, Метро Аэропорт, Метро Бауманская, Метро Октябрьская"
+          width="100%" 
+          height="345" 
+          frameBorder="0"></iframe>
       </div>
     </div>
   )
