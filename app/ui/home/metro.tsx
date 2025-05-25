@@ -15,7 +15,7 @@ export default function Metro() {
             alt="Иконка метро"
           />
           <div>
-            <h4 className={`${tenor_sans.className} uppercase text-xl mt-2`}>{item.title}</h4>
+            <h3 className={`${tenor_sans.className} uppercase text-xl mt-2`}>{item.title}</h3>
             <p className="text-gray">{item.address}</p>
             <p>{item.openinghouse}</p>
           </div>
