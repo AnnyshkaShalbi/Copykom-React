@@ -1,40 +1,75 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { tenor_sans } from "@/app/ui/fonts";
+import { Office } from '@/app/lib/types/offices';
 import Preloader from '@/app/ui/common/preloader';
-
-interface Office {
-  id: number;
-  title: string;
-  address: string;
-  opening_hours: string;
-  metro_icon: string;
-}
+import MetroAdminList from '@/app/ui/admin/mainpage/metro';
+import { ModalDelete } from '@/app/ui/common/modals/modalDelete';
+import { ModalAddEdit } from '@/app/ui/common/modals/modalAddEdit';
+import { Button } from '@/app/ui/common/button';
 
 export default function AdminMainPage() {
   const router = useRouter();
   const [offices, setOffices] = useState<Office[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [officeToDelete, setOfficeToDelete] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [currentOffice, setCurrentOffice] = useState<Office | null>(null);
+const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+
+const handleAddOffice = () => {
+  setModalMode('add');
+  setCurrentOffice(null);
+  setIsModalOpen(true);
+};
+
+const handleEditOffice = (office: Office) => {
+  setModalMode('edit');
+  setCurrentOffice(office);
+  setIsModalOpen(true);
+};
+
+const handleSaveOffice = async (data: Office) => {
+  try {
+    const url = '/api/offices';
+    const method = modalMode === 'add' ? 'POST' : 'PUT';
+    
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(modalMode === 'edit' ? { ...data, id: currentOffice?.id } : data)
+    });
+
+    if (!response.ok) throw new Error('Ошибка сохранения');
+
+    const result = await response.json();
+    
+    // Обновляем список офисов
+    if (modalMode === 'add') {
+      setOffices(prev => [...prev, result]);
+    } else {
+      setOffices(prev => prev.map(o => o.id === result.id ? result : o));
+    }
+    
+    setIsModalOpen(false);
+  } catch (error) {
+    console.error('Ошибка:', error);
+  }
+};
 
   useEffect(() => {
-    // Проверка авторизации
     if (!sessionStorage.getItem('admin_id')) {
       router.push('/admin/login');
       return;
     }
 
-    // Загрузка данных об офисах
     const fetchOffices = async () => {
       try {
         const response = await fetch('/api/offices');
-        if (!response.ok) {
-          throw new Error('Ошибка при загрузке данных');
-        }
-        const data = await response.json();
-        setOffices(data);
+        if (!response.ok) throw new Error('Ошибка при загрузке данных');
+        setOffices(await response.json());
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
       } finally {
@@ -45,35 +80,85 @@ export default function AdminMainPage() {
     fetchOffices();
   }, [router]);
 
-  if (loading) {
-    return <Preloader />;
+  const handleDeleteClick = (id: number | undefined) => {
+    if (id === undefined) {
+    console.error('Попытка удаления офиса без ID');
+    setError('Не удалось определить офис для удаления');
+    return;
   }
+  
+  setOfficeToDelete(id);
+  setShowModal(true);
+  };
 
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
+  const confirmDelete = async () => {
+    if (!officeToDelete) {
+      setError('Не выбран офис для удаления');
+      setShowModal(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/offices', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: officeToDelete })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Ошибка при удалении');
+      }
+
+      // Оптимистичное обновление UI
+      setOffices(prev => prev.filter(office => office.id !== officeToDelete));
+    
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка при удалении');
+    } finally {
+      setShowModal(false);
+      setOfficeToDelete(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+    setOfficeToDelete(null);
+  };
+
+  if (loading) return <Preloader />;
+  if (error) return <div className="text-red-500">{error}</div>;
 
   return (
-    <div className="p-4">
-      <h1 className={`${tenor_sans.className} uppercase text-2xl font-bold mb-6`}>Офисы копиком:</h1>
+    <div>
+     <Button 
+      onClick={handleAddOffice}
+     >
+      Добавить офис
+     </Button>
+
+      <MetroAdminList 
+        offices={offices} 
+        onDeleteClick={handleDeleteClick} 
+        onEditClick={handleEditOffice}
+      />
       
-      <div className="wrapper flex flex-col justify-between px-5 gap-3 md:grid md:grid-cols-2 md:gap-6">
-        {offices.map((office) => (
-          <div key={office.id} className="flex items-start gap-3">
-            <Image
-              width={45}
-              height={41}
-              src="../metro.svg"
-              alt="Иконка метро"
-            />
-            <div>
-              <h3 className={`${tenor_sans.className} uppercase text-xl mt-2`}>{office.title}</h3>
-              <p className="text-gray">{office.address}</p>
-              <p>{office.opening_hours}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <ModalDelete 
+        isOpen={showModal}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        text="Уверены ли вы, что хотите удалить данный офис?"
+        
+      />
+
+      <ModalAddEdit
+        isOpen={isModalOpen}
+        mode={modalMode}
+        initialData={currentOffice || undefined}
+        onConfirm={handleSaveOffice}
+        onCancel={() => setIsModalOpen(false)}
+        text={modalMode === 'add' ? 'Добавление нового офиса' : 'Редактирование офиса'}
+      />
     </div>
   );
 }
