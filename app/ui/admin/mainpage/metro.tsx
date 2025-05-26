@@ -15,7 +15,7 @@ export default function MetroAdmin({ offices, onDeleteClick, onEditClick }: Metr
       {offices.map((office) => (
         <div 
           key={office.id} 
-          className="flex items-start gap-3 relative group p-3 rounded-lg transition-colors hover:bg-gray-50"
+          className="flex flex-col sm:flex-row items-start gap-3 relative group p-3 rounded-lg transition-colors hover:bg-gray-50"
         >
           <button
             onClick={() => onEditClick(office)}
