@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
-import TableProjectdoc from "../../ui/services/projectdoc/table";
-import LeaveRequest from "../../ui/services/leaveRequest";
+import TableProjectdoc from "@/app/ui/services/projectdoc/table";
+import LeaveRequest from "@/app/ui/services/leaveRequest";
 import Tabs from "@/app/ui/common/tabs";
 
 export const metadata: Metadata = {

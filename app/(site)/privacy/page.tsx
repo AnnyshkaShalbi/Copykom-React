@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Title from "../ui/common/title";
+import Title from "../../ui/common/title";
 
 
 export default function Page() {

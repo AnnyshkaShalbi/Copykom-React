@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TablePatterns from "../../ui/services/patterns/table";
-import LeaveRequest from "../../ui/services/leaveRequest";
+import TablePatterns from "@/app/ui/services/patterns/table";
+import LeaveRequest from "@/app/ui/services/leaveRequest";
 
 export const metadata: Metadata = {
   title: 'Печать лекал и выкроек в Москве | Копиком',

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Title from "@/app/ui/common/title";
 import Tabs from "@/app/ui/common/tabs";
-import TableScanning from "../../ui/services/scanning/table";
-import LeaveRequest from "../../ui/services/leaveRequest";
+import TableScanning from "@/app/ui/services/scanning/table";
+import LeaveRequest from "@/app/ui/services/leaveRequest";
 
 export const metadata: Metadata = {
   title: 'Сканирование документов в Москве | Копиком',
