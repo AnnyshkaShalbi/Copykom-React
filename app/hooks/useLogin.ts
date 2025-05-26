@@ -10,6 +10,7 @@ interface LoginForm {
 interface Errors {
   login?: string;
   password?: string;
+  global?: string;
 }
 
 export const useLogin = () => {
@@ -40,16 +41,12 @@ export const useLogin = () => {
     return Object.keys(newErrors).length === 0;
   }, [form.login, form.password]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    
-    // Очищаем ошибку при изменении поля
-    setErrors((prev) => (prev[name as keyof Errors] 
-      ? { ...prev, [name]: undefined } 
-      : prev
-    ));
-  }, []);
+  const handleChange = (field: keyof LoginForm) => (value: string) => {
+    setForm(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
+  };
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,17 +54,35 @@ export const useLogin = () => {
 
     setIsLoading(true);
     try {
-      // Имитация API запроса
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Ошибка авторизации');
+      }
+
+      const { adminId } = await response.json(); 
+      sessionStorage.setItem('admin_id', adminId); 
+
+      router.push('/admin/mainpage');
+    } catch (error: unknown) {
+      let errorMessage = 'Неизвестная ошибка';
       
-      // Перенаправление после успешного входа
-      router.push("/admin");
-    } catch (error) {
-      setErrors({ password: "Неверный логин или пароль" });
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
+      setErrors({ global: errorMessage });
     } finally {
       setIsLoading(false);
     }
-  }, [validate, router]);
+  }, [form, validate, router]);
 
   return {
     form,

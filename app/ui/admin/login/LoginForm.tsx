@@ -14,35 +14,46 @@ export default function LoginForm() {
   } = useLogin();
 
   return (
-    <form 
-      onSubmit={handleSubmit}
-      className="w-full p-10 md:p-[2.5rem_3.5rem] after:hidden md:max-w-[37.5rem] flex flex-col items-center justify-center gap-2.5 bg-primary-light relative mx-auto py-[3.125rem] px-[4.6875rem] md:after:block md:after:content-[''] md:after:absolute md:after:w-full md:after:h-full md:after:border md:after:border-primary md:after:top-4 md:after:left-4"
-    >
-      <h1 className="text-2xl font-bold mb-4">Вход в админ-панель</h1>
-      
-      <Input
-        type="text"
-        label="Логин"
-        placeholder="admin"
-        value={form.login}
-        onChange={handleChange}
-        error={errors.login}
-        required
-      />
+    <div className="w-full p-8 md:px-10 md:py-14 after:hidden md:max-w-[37.5rem] bg-primary-light relative mx-auto py-12 px-16 md:after:block md:after:content-[''] md:after:absolute md:after:w-full md:after:h-full md:after:border md:after:border-primary md:after:top-4 md:after:left-4">
+      <form 
+        onSubmit={handleSubmit}
+        className="z-10 relative flex flex-col items-center justify-center gap-4"
+      >
+        <h1 className="text-xl sm:text-2xl font-bold">Вход в админ-панель</h1>
+        
+        <Input
+          type="text"
+          label="Логин"
+          placeholder="admin"
+          value={form.login}
+          onChange={(e) => handleChange('login')(e.target.value)}
+          error={errors.login}
+          required
+          className="w-full sm:w-3/4"
+        />
 
-      <Input
-        type="password"
-        label="Пароль"
-        placeholder="••••••••"
-        value={form.password}
-        onChange={handleChange}
-        error={errors.password}
-        required
-      />
+        <Input
+          type="password"
+          label="Пароль"
+          placeholder="••••••••"
+          value={form.password}
+          onChange={(e) => handleChange('password')(e.target.value)}
+          error={errors.password}
+          required
+          className="w-full sm:w-3/4"
+        />
 
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? "Вход..." : "Войти"}
-      </Button>
-    </form>
+        {errors.global && (
+          <div className="text-red-500 text-sm w-full sm:w-3/4 text-center">
+            {errors.global}
+          </div>
+        )}
+
+        <Button type="submit" disabled={isLoading} className="w-full sm:w-3/4 mt-2">
+          {isLoading ? "Вход..." : "Войти"}
+        </Button>
+      </form>
+    </div>
+    
   );
 }

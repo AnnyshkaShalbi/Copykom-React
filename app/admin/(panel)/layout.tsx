@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Sidebar from "@/app/ui/admin/Sidebar"
 
 export const metadata: Metadata = {
   robots: {
@@ -9,14 +10,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LoginLayout({
+export default function PanelLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <div className="bg-gray-50 h-full w-full">
-      {children}
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className="flex-1 p-6 sm:ml-64 mt-10 sm:mt-0">
+        {children}
+      </div>
     </div>
   );
 }
