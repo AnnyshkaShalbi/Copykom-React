@@ -1,5 +1,5 @@
 'use client'
-
+import { useEffect } from 'react'
 import { useOrder } from '@/app/context/OrderContext';
 import Title from "@/app/ui/common/title";
 import StepsOrder from './steps'
@@ -8,9 +8,16 @@ import StepTwo from '@/app/ui/order/stepTwo/stepTwo'
 import StepThree from '@/app/ui/order/stepThree/stepThree';
 
 
-export default function Steps() {
+export default function Order() {
   const { currentStep } = useOrder();
   const subtitle = "Твёрдый перёплет сохранит документы в идеальном состоянии, повысит презентабельность их внешнего вида. Дипломы и диссертации будут защищены от посторонних воздействий и качественно скреплены."
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', 
+    });
+  }, [currentStep]);
 
   return(
     <div className="wrapper flex flex-col justify-between px-5">
