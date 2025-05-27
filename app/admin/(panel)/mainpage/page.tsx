@@ -7,6 +7,7 @@ import MetroAdminList from '@/app/ui/admin/mainpage/metro';
 import { ModalDelete } from '@/app/ui/common/modals/modalDelete';
 import { ModalAddEdit } from '@/app/ui/common/modals/modalAddEdit';
 import { Button } from '@/app/ui/common/button';
+import MetroSkeleton from "@/app/ui/home/skeletonMetro";
 
 export default function AdminMainPage() {
   const router = useRouter();
@@ -16,48 +17,48 @@ export default function AdminMainPage() {
   const [showModal, setShowModal] = useState(false);
   const [officeToDelete, setOfficeToDelete] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [currentOffice, setCurrentOffice] = useState<Office | null>(null);
-const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [currentOffice, setCurrentOffice] = useState<Office | null>(null);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
 
-const handleAddOffice = () => {
-  setModalMode('add');
-  setCurrentOffice(null);
-  setIsModalOpen(true);
-};
+  const handleAddOffice = () => {
+    setModalMode('add');
+    setCurrentOffice(null);
+    setIsModalOpen(true);
+  };
 
-const handleEditOffice = (office: Office) => {
-  setModalMode('edit');
-  setCurrentOffice(office);
-  setIsModalOpen(true);
-};
+  const handleEditOffice = (office: Office) => {
+    setModalMode('edit');
+    setCurrentOffice(office);
+    setIsModalOpen(true);
+  };
 
-const handleSaveOffice = async (data: Office) => {
-  try {
-    const url = '/api/offices';
-    const method = modalMode === 'add' ? 'POST' : 'PUT';
-    
-    const response = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(modalMode === 'edit' ? { ...data, id: currentOffice?.id } : data)
-    });
+  const handleSaveOffice = async (data: Office) => {
+    try {
+      const url = '/api/offices';
+      const method = modalMode === 'add' ? 'POST' : 'PUT';
+      
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(modalMode === 'edit' ? { ...data, id: currentOffice?.id } : data)
+      });
 
-    if (!response.ok) throw new Error('Ошибка сохранения');
+      if (!response.ok) throw new Error('Ошибка сохранения');
 
-    const result = await response.json();
-    
-    // Обновляем список офисов
-    if (modalMode === 'add') {
-      setOffices(prev => [...prev, result]);
-    } else {
-      setOffices(prev => prev.map(o => o.id === result.id ? result : o));
+      const result = await response.json();
+      
+      // Обновляем список офисов
+      if (modalMode === 'add') {
+        setOffices(prev => [...prev, result]);
+      } else {
+        setOffices(prev => prev.map(o => o.id === result.id ? result : o));
+      }
+      
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Ошибка:', error);
     }
-    
-    setIsModalOpen(false);
-  } catch (error) {
-    console.error('Ошибка:', error);
-  }
-};
+  };
 
   useEffect(() => {
     if (!sessionStorage.getItem('admin_id')) {
@@ -133,15 +134,18 @@ const handleSaveOffice = async (data: Office) => {
     <div>
      <Button 
       onClick={handleAddOffice}
+      className='mb-6'
      >
       Добавить офис
      </Button>
 
-      <MetroAdminList 
-        offices={offices} 
-        onDeleteClick={handleDeleteClick} 
-        onEditClick={handleEditOffice}
-      />
+      { offices.length > 0 ? 
+        <MetroAdminList 
+          offices={offices} 
+          onDeleteClick={handleDeleteClick} 
+          onEditClick={handleEditOffice}
+        /> : <MetroSkeleton /> }
+      
       
       <ModalDelete 
         isOpen={showModal}

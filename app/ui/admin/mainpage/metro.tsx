@@ -11,30 +11,31 @@ interface MetroAdminProps {
 
 export default function MetroAdmin({ offices, onDeleteClick, onEditClick }: MetroAdminProps) {
   return (
-    <div className="wrapper flex flex-col justify-between px-5 gap-3 md:grid md:grid-cols-2 md:gap-6">
+    <div className="flex flex-col justify-between gap-3 md:grid md:grid-cols-2 md:gap-4">
       {offices.map((office) => (
         <div 
           key={office.id} 
-          className="flex flex-col sm:flex-row items-start gap-3 relative group p-3 rounded-lg transition-colors hover:bg-gray-50"
+          className="flex flex-col sm:flex-row items-start gap-3 relative group p-3 rounded-lg transition-colors bg-blue-50"
         >
-          <button
-            onClick={() => onEditClick(office)}
-            className="opacity-0 group-hover:opacity-100 transition-opacity
-                      w-6 h-6 flex items-center justify-center bg-blue-500 rounded-full
-                      text-white hover:bg-blue-600 z-10"
-            aria-label="Редактировать"
-          >
-            ✎
-          </button>
-          <button
-            onClick={() => onDeleteClick(office?.id)}
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity
-                      w-6 h-6 flex items-center justify-center bg-red-500 rounded-full
-                      text-white hover:bg-red-600 z-10"
-            aria-label="Удалить офис"
-          >
-            &times;
-          </button>
+          <div className='absolute top-2 right-2'>
+            <button
+              onClick={() => onEditClick(office)}
+              className="w-6 h-6 flex items-center justify-center bg-blue-500 rounded-full
+                        text-white hover:bg-blue-600 z-10 mb-2"
+              aria-label="Редактировать"
+            >
+              ✎
+            </button>
+            <button
+              onClick={() => onDeleteClick(office?.id)}
+              className="w-6 h-6 flex items-center justify-center bg-red-500 rounded-full
+                        text-white hover:bg-red-600 z-10"
+              aria-label="Удалить офис"
+            >
+              &times;
+            </button>
+          </div>
+          
 
           <Image
             width={45}
