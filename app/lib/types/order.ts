@@ -4,10 +4,7 @@ export interface Cover {
   price: number,
   title: string,
   image_path: string,
-  diplom_work: boolean,
-  diplom_project: boolean,
-  final_work: boolean,
-  master_thesis: boolean,
+  color: string;
 }
 // новые типы для бд
 

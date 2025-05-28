@@ -17,6 +17,7 @@ export default function CoverForDiplom() {
         const response = await fetch('/api/covers');
         if (!response.ok) throw new Error('Ошибка при загрузке данных');
         setCovers(await response.json());
+        
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
       } finally {
@@ -41,13 +42,27 @@ export default function CoverForDiplom() {
             {covers.map((item) => (
               <div 
                 key={item.id} 
-                className="group flex flex-col gap-2 cursor-pointer transition-all duration-300"
+                className="group flex flex-col gap-2 transition-all duration-300"
               >
-                <div 
-                  className={`
-                    h-56 bg-light flex items-center justify-center transition-all duration-300 p-4 sm:p-5 relative
-                  `}
-                  onClick={() => {console.log('choose diplom')}}>
+                <div className={`h-56 bg-light flex items-center justify-center transition-all duration-300 p-4 sm:p-5 relative`}>
+                  <div className='absolute top-2 right-2'>
+                    <button
+                      onClick={() => console.log('Удалить офис')}
+                      className="w-6 h-6 flex items-center justify-center bg-blue-500 rounded-full
+                                text-white hover:bg-blue-600 z-10 mb-2"
+                      aria-label="Редактировать обложку"
+                    >
+                      ✎
+                    </button>
+                    <button
+                      onClick={() => console.log('Удалить офис')}
+                      className="w-6 h-6 flex items-center justify-center bg-red-500 rounded-full
+                                text-white hover:bg-red-600 z-10"
+                      aria-label="Удалить обложку"
+                    >
+                      &times;
+                    </button>
+                  </div>
                   <Image
                     width={128}
                     height={177}

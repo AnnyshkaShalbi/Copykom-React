@@ -22,7 +22,7 @@ export default function MetroAdmin({ offices, onDeleteClick, onEditClick }: Metr
               onClick={() => onEditClick(office)}
               className="w-6 h-6 flex items-center justify-center bg-blue-500 rounded-full
                         text-white hover:bg-blue-600 z-10 mb-2"
-              aria-label="Редактировать"
+              aria-label="Редактировать офис"
             >
               ✎
             </button>
@@ -55,3 +55,4 @@ export default function MetroAdmin({ offices, onDeleteClick, onEditClick }: Metr
     </div>
   );
 }
+

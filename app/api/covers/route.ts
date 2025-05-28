@@ -1,21 +1,57 @@
 import { NextResponse } from 'next/server';
 import sql from '@/app/lib/db';
 
-export async function GET() {
+// export async function GET() {
+//   try {
+//     const covers = await sql`
+//       SELECT 
+//         id,
+//         price,
+//         title,
+//         image_path,
+//         diplom_work,
+//         diplom_project,
+//         final_work,
+//         master_thesis
+//       FROM covers
+//       ORDER BY id
+//     `;
+//     return NextResponse.json(covers);
+    
+//   } catch (error: unknown) {
+//     let errorMessage = 'Ошибка при получении данных обложек';
+    
+//     if (error instanceof Error) {
+//       errorMessage = error.message;
+//     } else if (typeof error === 'string') {
+//       errorMessage = error;
+//     }
+
+//     return NextResponse.json(
+//       { error: errorMessage },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const color = searchParams.get('color'); 
+    
+    // Получаем данные с фильтрацией
     const covers = await sql`
       SELECT 
         id,
         price,
         title,
         image_path,
-        diplom_work,
-        diplom_project,
-        final_work,
-        master_thesis
+        color
       FROM covers
+      ${color ? sql`WHERE color = ${color}` : sql``}
       ORDER BY id
     `;
+    
     return NextResponse.json(covers);
     
   } catch (error: unknown) {

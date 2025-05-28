@@ -7,8 +7,6 @@ interface MetroProps {
 }
 
 export default function Metro({ offices }: MetroProps) {
-  
-
   return(
     <div className="wrapper flex flex-col justify-between px-5 gap-3
       md:grid md:grid-cols-2 md:gap-6">
@@ -19,6 +17,7 @@ export default function Metro({ offices }: MetroProps) {
             height={41}
             src="../metro.svg"
             alt="Иконка метро"
+            loading="lazy"
           />
           <div>
             <h3 className={`${tenor_sans.className} uppercase text-xl mt-2`}>{item.title}</h3>
