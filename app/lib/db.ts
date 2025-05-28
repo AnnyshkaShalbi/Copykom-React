@@ -1,4 +1,3 @@
-// lib/db.ts
 import postgres from 'postgres';
 
 // Проверяем, что код выполняется на сервере

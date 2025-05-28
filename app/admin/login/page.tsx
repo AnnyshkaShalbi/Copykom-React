@@ -1,4 +1,4 @@
-import LoginForm from '@/app/ui/admin/login/LoginForm'
+import LoginForm from '@/app/ui/admin/login/loginForm'
 
 
 export default function Page() {

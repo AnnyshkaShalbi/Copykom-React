@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import sql from '@/app/lib/db';
 
-// GET - получение всех офисов
 export async function GET() {
   try {
     const offices = await sql`
@@ -27,7 +26,6 @@ export async function GET() {
   }
 }
 
-// DELETE - удаление офиса
 export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
@@ -81,7 +79,6 @@ export async function DELETE(request: Request) {
   }
 }
 
-// POST - добавление нового офиса
 export async function POST(request: Request) {
   try {
     const { title, address, opening_hours } = await request.json();
@@ -118,7 +115,6 @@ export async function POST(request: Request) {
   }
 }
 
-// PUT - обновление офиса
 export async function PUT(request: Request) {
   try {
     const { id, title, address, opening_hours } = await request.json();

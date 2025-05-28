@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Office } from '@/app/lib/types/offices';
-import Preloader from '@/app/ui/common/preloader';
 import MetroAdminList from '@/app/ui/admin/mainpage/metro';
 import { ModalDelete } from '@/app/ui/common/modals/modalDelete';
 import { ModalAddEdit } from '@/app/ui/common/modals/modalAddEdit';
@@ -127,7 +126,6 @@ export default function AdminMainPage() {
     setOfficeToDelete(null);
   };
 
-  if (loading) return <Preloader />;
   if (error) return <div className="text-red-500">{error}</div>;
 
   return (
@@ -139,12 +137,17 @@ export default function AdminMainPage() {
       Добавить офис
      </Button>
 
-      { offices.length > 0 ? 
+      {loading ? (
+        <MetroSkeleton />
+      ) : offices.length > 0 ? (
         <MetroAdminList 
           offices={offices} 
           onDeleteClick={handleDeleteClick} 
           onEditClick={handleEditOffice}
-        /> : <MetroSkeleton /> }
+        />
+      ) : (
+        <div className="text-gray-500">Нет доступных офисов</div>
+      )}
       
       
       <ModalDelete 

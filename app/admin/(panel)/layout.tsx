@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Sidebar from "@/app/ui/admin/Sidebar"
+import Sidebar from "@/app/ui/admin/sidebar"
 
 export const metadata: Metadata = {
   robots: {

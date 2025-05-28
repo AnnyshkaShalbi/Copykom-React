@@ -1,3 +1,16 @@
+// новые типы для бд
+export interface Cover {
+  id?: number,
+  price: number,
+  title: string,
+  image_path: string,
+  diplom_work: boolean,
+  diplom_project: boolean,
+  final_work: boolean,
+  master_thesis: boolean,
+}
+// новые типы для бд
+
 export type ReadinessDate = {
   formattedDate: string;
   formattedTime: string;
