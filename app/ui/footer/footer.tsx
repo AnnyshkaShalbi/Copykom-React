@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="wrapper flex flex-col gap-4 justify-between items-center py-10 px-5 sm:px-12
         sm:flex-row">
         <div className="flex flex-col items-center gap-4 sm:items-start 
-          md:flex-row md:items-center md:gap-9 lg:gap-16">
+          lg:flex-row md:items-center md:gap-9 lg:gap-16">
           <Link href={'/'}>
             <Image
               width={178}
@@ -26,6 +26,7 @@ export default function Footer() {
             className={`${tenor_sans.className} text-3xl`}> 
             +7 (915) 431-06-66
           </Link>
+          <Link href="/offer" className="text-sm">Публичная оферта</Link>
         </div>
 
         <div className="flex flex-col items-center gap-4 sm:items-end">
