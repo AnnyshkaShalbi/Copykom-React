@@ -5,6 +5,8 @@ import { tenor_sans } from '@/app/ui/fonts';
 import Socials from './socials'
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer className="bg-[#0B0B0C] text-white flex flex-shrink-0" id="footer">
       <div className="wrapper flex flex-col gap-4 justify-between items-center py-10 px-5 sm:px-12
@@ -33,7 +35,7 @@ export default function Footer() {
           <Socials />
 
           <Link href="/privacy" className="text-sm">Политика конфиденциальности</Link>
-          <p className="text-sm">© 2015-2025 Копиком</p>
+          <p className="text-sm">© 2015-{currentYear} Копиком</p>
         </div>
       </div>
     </footer>
